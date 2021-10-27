@@ -1,0 +1,65 @@
+@import '../../variables';
+
+.btn{
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 1.2rem;
+
+    &--default{
+        background-color: $button-1-background;
+        color: $button-1-text;
+        &:hover{
+            background-color: $button-1-hover;
+        }
+    }
+
+    &--type-one{
+        background-color: $button-1-background;
+        color: $button-1-text;
+        display: flex;
+        align-items: center;
+        padding-left: 1rem;
+        img{
+            background-color: #fff;
+            padding: 0.5rem;
+            margin-right: 1rem;
+            border-radius: 69rem;
+        }
+        &:hover{
+            background-color: $button-1-hover;
+        }
+    }
+    &--type-two{
+        background-color: $button-2-light-background;
+        color: $button-2-light-text;
+        &:hover{
+            background-color: $button-2-light-hover;
+        }
+    }
+    &--type-three{
+        background-color: $button-3-light-background;
+        color: $button-3-light-text;
+        &:hover{
+            background-color: $button-3-light-hover;
+        }
+    }
+    &--type-four{
+        background-color: $button-4-background;
+        color: $button-4-text;
+        &:hover{
+            background-color: $button-4-hover;
+        }
+    }
+    &--type-five{
+        background-color: $button-5-background;
+        color: $button-5-text;
+        &:hover{
+            background-color: $button-5-hover;
+        }
+    }
+}

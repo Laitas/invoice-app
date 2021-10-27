@@ -1,0 +1,63 @@
+@import '../../variables';
+.react-calendar{
+    max-width: 24rem;
+    &__tile{
+        background-color: transparent;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 0.5rem;
+        &--active{
+            color: $purple;
+        }
+        &:hover{
+            color: $purple;
+        }
+    }
+    &__navigation__arrow{
+        background-color: transparent;
+        border: none;
+        padding: 1rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: $purple;
+        cursor: pointer;
+    }
+    &__navigation__label{
+        background-color: transparent;
+        border: none;
+        padding: 1rem;
+        font-size: 2rem;
+        font-weight: 600;
+        
+    }
+    &__month-view__days__day--neighboringMonth{
+        color: $gray;
+    }
+    &__month-view__days{
+        justify-content: center;
+    }
+}
+.calendar--input{
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: 1px solid $gray;
+    border-radius: 6px;
+    max-width: 24rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:active,&:hover{
+        border: 1px solid $purple;
+    }
+}
+
+// DEFAULTS REMOVE
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button,
+.react-calendar__month-view__weekdays__weekday{
+    display: none;
+}
