@@ -62,4 +62,13 @@
             background-color: $button-5-hover;
         }
     }
+    &--google{
+        background-color: #1a73e8;
+        color: #fff;
+        &:hover{
+            outline: 1px solid #1a73e8;
+            background-color: #fff;
+            color: #1a73e8;
+        }
+    }
 }

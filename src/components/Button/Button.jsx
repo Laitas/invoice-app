@@ -1,7 +1,7 @@
 import React from 'react'
 import IconPlus from '../../assets/icon-plus.svg'
 import './Button.scss'
-const Button = ({type,text,darkMode = false}) => {
+const Button = ({onClick,type,text,darkMode = false}) => {
     switch(type){
         case 1:
             return (
@@ -22,6 +22,10 @@ const Button = ({type,text,darkMode = false}) => {
         case 5:
             return (
                 <button className="btn btn--type-five">{text}</button>
+            )
+        case "google":
+            return (
+                <button onClick={onClick} className="btn btn--google">{text}</button>
             )
         default:
             return <button className="btn btn--default">{text}</button>;

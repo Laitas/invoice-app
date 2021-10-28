@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@400;500;600;700&display=swap');
+@import './variables';
 *{
   margin: 0;
   padding: 0;
@@ -9,6 +10,7 @@ html{
 }
 body{
   font-family: 'Spartan', sans-serif;
+  background-color: $light-bg;
 }
 h1{
   font-size: 3.2rem;
@@ -27,4 +29,18 @@ p,li,span,::placeholder,label{
 }
 .App{
   margin-left: 10rem;
+}
+input{
+  padding: 0.5rem;
+  font-weight: bold;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  outline: none;
+  &:active,&:focus{
+    border:1px solid $purple;
+  }
+}
+label{
+  color:$input;
+  font-weight: bold;
 }
