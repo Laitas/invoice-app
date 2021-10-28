@@ -10,6 +10,14 @@
     padding: 3rem;
     background-color: #fff;
     border-radius: 1rem;
+    &--title{
+        p{
+            margin: 0.5rem 0;
+            span:hover{
+                cursor: pointer;
+            }
+        }
+    }
     &--form{
         margin: 1rem 0;
         &-input{
