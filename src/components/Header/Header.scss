@@ -1,0 +1,15 @@
+.header-main{
+    max-width: 80vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+
+    &--buttons{
+        display: flex;
+        button:first-of-type{
+            margin-right: 2rem;
+        }
+    }
+}
