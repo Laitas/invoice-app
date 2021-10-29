@@ -1,13 +1,27 @@
 @import '../../variables';
 .filter-btn{
-    font-family: inherit;
-    background-color: transparent;
-    border: none;
-    font-weight: bold;
-    padding: 1rem 2rem;
-    cursor: pointer;
-
-    span{
-        margin-left: 1rem;
+    position: relative;
+    &--btn{
+        font-family: inherit;
+        background-color: transparent;
+        border: none;
+        font-weight: bold;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        
+        span{
+            margin-left: 1rem;
+        }
+        
     }
+        &--dropdown{
+            position: absolute;
+            top: 4rem;
+            background-color: #fff;
+            border-radius: 1rem;
+            min-width: 17rem;
+            ul{
+                list-style-type: none;
+            }
+        }
 }
