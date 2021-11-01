@@ -29,10 +29,9 @@ function App() {
             exact
             path="/login"
             render={() =>
-              currentUser ? <Homepage /> : <Login/>
+              currentUser ? <Redirect to='/'/> : <Login/>
             }
           />
-          {/* <Route exact path="/signup" component={Signup}/> */}
         </Switch>
       </div>
     </HashRouter>
