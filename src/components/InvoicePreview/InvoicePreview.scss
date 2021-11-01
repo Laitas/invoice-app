@@ -1,0 +1,20 @@
+@import '../../variables';
+.invoice-preview{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 6px;
+    box-shadow: 0px 4px 10px -5px rgba(black,0.4);
+    &--id{
+        font-weight: bold;
+        .hash{
+            color: $input;
+        }
+    }
+    &--date,&--name{
+        color: #858BB2;
+    }
+}

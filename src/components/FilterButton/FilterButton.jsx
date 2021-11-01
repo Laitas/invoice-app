@@ -17,8 +17,6 @@ const FilterButton = () => {
 
   const toggleCheckbox = () => {
       setUpdate(!update)
-    console.log(options);
-    console.log(currentStatus);
     options.map((option) => {
       if (currentStatus === option.value) {
         option.active = true;
