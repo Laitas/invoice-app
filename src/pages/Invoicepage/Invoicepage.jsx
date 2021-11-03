@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
+import BackButton from "../../components/BackButton/BackButton";
 import InvoiceHeader from "../../components/InvoiceHeader/InvoiceHeader";
 import InvoiceItems from "../../components/InvoiceItems/InvoiceItems";
 import InvoiceMain from "../../components/InvoiceMain/InvoiceMain";
@@ -17,6 +18,7 @@ const Invoicepage = () => {
   }, [params]);
   return (
     <div className="invoice-page">
+      <BackButton/>
       <div className="invoice-page--invoice">
         <InvoiceHeader invoice={invoice} />
         <InvoiceMain  invoice={invoice}/>
