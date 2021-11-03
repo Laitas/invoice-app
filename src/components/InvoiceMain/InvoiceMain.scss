@@ -1,0 +1,25 @@
+@import '../../variables';
+main{
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    li{
+        margin: 0.25rem 0;
+        list-style-type: none;
+        color: $input;
+    }
+    span{
+        color: $input;
+    }
+    .bold{
+        display: block;
+        font-weight: bold;
+        margin: 1rem 0;
+        color: inherit;
+        font-size: 1.5rem;
+    }
+    .dates,.bill-to,.sent-to{
+        display: flex;
+        flex-direction: column;
+    }
+}
