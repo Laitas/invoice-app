@@ -1,0 +1,46 @@
+@import '../../variables';
+.invoice-items{
+    background-color: #F9FAFE;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    &--items{
+        padding: 3rem;
+        display: flex;
+        justify-content: space-between;
+        ul p{
+            margin-bottom: 2rem;
+        }
+        li{
+            margin: 2rem 0;
+            font-weight: bold;
+        }
+        .item-qty{
+            text-align: center;
+            li{
+                color: $input;
+            }
+        }
+        .item-price{
+            text-align: end;
+            li{
+                color: $input;
+            }
+        }
+        
+        .item-total{
+            text-align: end;
+        }
+    }
+    li{
+        list-style-type: none;
+    }
+    footer{
+        display: flex;
+        padding: 3rem;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $nav-bg;
+        color: white;
+    }
+}
