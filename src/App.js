@@ -5,6 +5,7 @@ import {HashRouter, Route,Switch,Redirect} from 'react-router-dom'
 import Login from './pages/Login/Login';
 import Homepage from './pages/Homepage/Homepage';
 import { auth } from './firebase';
+import Invoicepage from './pages/Invoicepage/Invoicepage';
  
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -32,6 +33,7 @@ function App() {
               currentUser ? <Redirect to='/'/> : <Login/>
             }
           />
+          <Route exact path='/invoices/:id' component={Invoicepage}/>
         </Switch>
       </div>
     </HashRouter>

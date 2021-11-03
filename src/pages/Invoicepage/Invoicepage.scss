@@ -1,0 +1,9 @@
+@import '../../variables';
+.invoice-page{
+
+    &--invoice{
+        background-color: #fff;
+        border-radius: 1rem;
+        padding: 5rem;
+    }
+}
