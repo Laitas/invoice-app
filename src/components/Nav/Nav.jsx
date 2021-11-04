@@ -4,7 +4,7 @@ import IconMoon from '../../assets/icon-moon.svg'
 import Userimg from '../../assets/image-avatar.jpg'
 import { useSelector, useDispatch } from 'react-redux'
 import { auth } from '../../firebase'
-import { setUser } from '../../redux/userSlice'
+import { setInvoices, setUser } from '../../redux/userSlice'
 import { signOut } from '@firebase/auth'
 import './Nav.scss'
 const Nav = () => {
@@ -12,7 +12,15 @@ const Nav = () => {
     const dispatch = useDispatch()
     const userSignOut = () =>{
         signOut(auth);
-        dispatch(setUser(null))
+        dispatch(
+          setUser({
+            photoURL: "",
+            email: "",
+            displayName: "",
+            uid: "",
+          })
+        );
+        dispatch(setInvoices([]))
     }
     return (
         <nav className="nav">
