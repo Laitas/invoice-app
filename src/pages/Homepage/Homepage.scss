@@ -1,0 +1,18 @@
+@import '../../variables';
+.empty-list{
+    margin: 10rem auto;
+    width: 100%;
+    text-align: center;
+
+    h2{
+        margin-top: 7rem;
+        margin-bottom: 3rem;
+    }
+    p{
+        color: #888EB0;
+        line-height: 1.5;
+    }
+    span{
+        font-weight: bold;
+    }
+}

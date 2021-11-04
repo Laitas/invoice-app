@@ -6,6 +6,8 @@ import { db } from '../../firebase';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setInvoices } from '../../redux/userSlice'
+import { ReactComponent as Empty } from '../../assets/illustration-empty.svg'
+import './Homepage.scss'
 const Homepage = () => {
     const uid = useSelector(state => state.user.user.uid)
     const invoices = useSelector(state => state.user.invoices)
@@ -23,9 +25,19 @@ const Homepage = () => {
     return (
         <div>
             <Header/>
-            {invoices?.map(invoice =>(
+            {invoices.length <= 0 ? 
+            <div className="empty-list" >
+                <Empty />
+                <h2>There is nothing here</h2>
+                <p>Create an invoice by clicking the <br />
+                
+                    <span>New Invoice</span> button and get started</p>
+            </div> 
+            :
+            invoices?.map(invoice =>(
                 <InvoicePreview key={invoice.id} invoice={invoice} />
-            ))}
+                ))
+            }
         </div>
     )
 }
