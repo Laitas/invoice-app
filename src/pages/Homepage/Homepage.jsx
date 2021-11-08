@@ -8,9 +8,11 @@ import { useDispatch } from 'react-redux';
 import { setInvoices } from '../../redux/userSlice'
 import { ReactComponent as Empty } from '../../assets/illustration-empty.svg'
 import './Homepage.scss'
+import NewInvoice from '../../components/NewInvoice/NewInvoice';
 const Homepage = () => {
     const uid = useSelector(state => state.user.user.uid)
     const invoices = useSelector(state => state.user.invoices)
+  const toggleNewInvoice = useSelector((state) => state.user.toggleNewInvoice);
     const dispatch = useDispatch()
     const getData = async () =>{
         if(uid){
@@ -24,6 +26,7 @@ const Homepage = () => {
     },[uid])
     return (
         <div>
+            {toggleNewInvoice && <NewInvoice/>}
             <Header/>
             {invoices.length <= 0 ? 
             <div className="empty-list" >

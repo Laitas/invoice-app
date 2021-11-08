@@ -7,7 +7,8 @@ const initialState = {
    displayName : '',
    uid : ''
  },
- invoices : []
+ invoices : [],
+ toggleNewInvoice : false
 }
 
 const userSlice = createSlice({
@@ -20,10 +21,11 @@ const userSlice = createSlice({
     setInvoices: (state, action) => {
       state.invoices = action.payload
     },
+    toggleNew : state => {state.toggleNewInvoice = !state.toggleNewInvoice}
   },
 });
 
 export const {
-    setUser, setInvoices
+    setUser, setInvoices, toggleNew
 } = userSlice.actions
 export default userSlice.reducer

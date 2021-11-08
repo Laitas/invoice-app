@@ -1,11 +1,14 @@
 import React from 'react'
 import IconPlus from '../../assets/icon-plus.svg'
+import { useDispatch } from 'react-redux'
 import './Button.scss'
+import { toggleNew } from '../../redux/userSlice'
 const Button = ({onClick,type,text,darkMode = false}) => {
+    const dispatch = useDispatch()
     switch(type){
         case 1:
             return (
-                <button className="btn btn--type-one"><img src={IconPlus} alt="" />{text}</button>
+                <button onClick={()=> dispatch(toggleNew())} className="btn btn--type-one"><img src={IconPlus} alt="" />{text}</button>
             )
         case 2:
             return (
