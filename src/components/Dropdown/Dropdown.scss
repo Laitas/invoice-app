@@ -1,0 +1,32 @@
+@import '../../variables';
+.dropdown--input{
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 1px solid $gray;
+    padding: 1rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    &:hover,&:focus{
+        border: 1px solid $purple;
+    }
+}
+.dropdown--input-dropdown{
+    margin-top: 1rem;
+    box-shadow: 0px 0px 10px -7px black;
+    border-radius: 6px;
+    li{
+        list-style-type: none;
+        padding: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        &:not(:last-of-type){
+            border-bottom: 1px solid $gray;
+        }
+        &:hover{
+            color: $purple;
+        }
+    }
+}
