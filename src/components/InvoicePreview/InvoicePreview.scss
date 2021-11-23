@@ -1,8 +1,8 @@
 @import '../../variables';
 .invoice-preview{
     background-color: #fff;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
     align-items: center;
     padding: 2rem;
     margin: 2rem 0;
@@ -16,5 +16,9 @@
     }
     &--date,&--name{
         color: #858BB2;
+    }
+    svg{
+        display: grid;
+        justify-self: flex-end;
     }
 }

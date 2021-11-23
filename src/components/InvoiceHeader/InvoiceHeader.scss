@@ -14,9 +14,13 @@ header{
     p,span{
         color: $input;
     }
+    
     .address{
         display: flex;
         flex-direction: column;
         text-align: end;
+        span{
+            margin: 0.25rem 0;
+        }
     }
 }
