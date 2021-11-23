@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    position: relative;
     &:hover,&:focus{
         border: 1px solid $purple;
     }
@@ -17,11 +18,17 @@
     margin-top: 1rem;
     box-shadow: 0px 0px 10px -7px black;
     border-radius: 6px;
+    position: absolute;
+    margin-top: 7.2rem;
+    overflow: hidden;
+    width: 273.9px;
     li{
         list-style-type: none;
         padding: 1rem;
         font-weight: bold;
         cursor: pointer;
+    background-color: #fff;
+
         &:not(:last-of-type){
             border-bottom: 1px solid $gray;
         }
