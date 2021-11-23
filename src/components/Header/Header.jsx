@@ -14,7 +14,7 @@ const Header = () => {
             </div>
             <div className="header-main--buttons">
                 <FilterButton/>
-                <Button type={1} text="New Invoice"/>
+                <Button v={1} text="New Invoice"/>
             </div>
         </div>
     )

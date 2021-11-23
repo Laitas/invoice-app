@@ -41,7 +41,7 @@ const InvoiceItems = ({ invoice }) => {
       </div>
       <footer>
           <p>Amount Due</p>
-          <h2>${total}</h2>
+          <h2>${invoice.total}</h2>
       </footer>
     </section>
   );

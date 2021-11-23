@@ -23,7 +23,7 @@ const Homepage = () => {
     }
     useEffect(()=>{
         getData()
-    },[uid])
+    },[uid,toggleNewInvoice])
     return (
         <div>
             {toggleNewInvoice && <NewInvoice/>}

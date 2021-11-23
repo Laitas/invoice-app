@@ -35,6 +35,7 @@ const Login = () => {
                   email: email,
                   displayName: displayName,
                   uid: uid,
+                  key : doc.id,
                 })
                 );
             });

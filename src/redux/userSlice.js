@@ -5,7 +5,8 @@ const initialState = {
    photoURL : '',
    email : '',
    displayName : '',
-   uid : ''
+   uid : '',
+   key : '',
  },
  invoices : [],
  toggleNewInvoice : false
@@ -23,9 +24,12 @@ const userSlice = createSlice({
     },
     toggleNew : state => {state.toggleNewInvoice = !state.toggleNewInvoice}
   },
+    setKey : (state,action) =>{
+      state.user.key = action.payload
+    }
 });
 
 export const {
-    setUser, setInvoices, toggleNew
+    setUser, setInvoices, toggleNew, setKey
 } = userSlice.actions
 export default userSlice.reducer

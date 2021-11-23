@@ -17,13 +17,13 @@ const FilterButton = () => {
 
   const toggleCheckbox = () => {
       setUpdate(!update)
-    options.map((option) => {
+    options.forEach((option) => {
       if (currentStatus === option.value) {
         option.active = true;
       } else {
         option.active = false;
       }
-    },[update]);
+    });
   };
   useEffect(() => {
     toggleCheckbox();

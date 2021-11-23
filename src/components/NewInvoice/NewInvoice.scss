@@ -1,55 +1,123 @@
-@import '../../_variables';
-.new-invoice{
-    position: absolute;
-    background-color: #fff;
-    padding:4rem 5rem;
-    top: 0;
+@import "../../_variables";
+.new-invoice {
+  position: fixed;
+  background-color: #fff;
+  padding: 4rem 5rem;
+  top: 0;
+  bottom: 0;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  z-index: 9;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($gray, 0.5);
+    border-radius: 1rem;
+  }
+  &::-webkit-scrollbar-track-piece {
+    margin: 1rem 0;
+  }
+  &--show {
+    left: 8rem;
+  }
+  &--hide {
+    left: -100vw;
+  }
+  h4 {
+    color: $purple;
+    margin: 2rem 0;
+  }
+  section {
+    margin: 4rem 0;
+  }
+  .input {
+    display: flex;
+    flex-direction: column;
+    margin: 1.5rem 0;
+    label,
+    .label {
+      margin-bottom: 1rem;
+    }
+  }
+  .multiple-inputs {
+    display: flex;
+    .input:not(:first-of-type) {
+      margin-left: 1.5rem;
+    }
+  }
+  .date-inputs {
+    display: flex;
+    .input {
+      width: 100%;
+    }
+  }
+  .label {
+    font-size: 1.2rem;
+    color: $input;
+    &.hidden{
+      opacity: 0;
+    }
+  }
+  .item-list--items {
+    border-collapse: collapse;
+    text-align: left;
+    td,th{
+      padding: 1rem 2rem;
+      &:first-of-type{
+        padding-left: 0;
+      }
+    }
+    td svg{
+      cursor: pointer;
+    }
+    .big{
+      max-width: 22rem;
+      input{
+        max-width: 21rem;
+      }
+    }
+    .medium{
+      max-width: 10rem;
+      input{
+        max-width: 9rem;
+      }
+    }
+    .small{
+      max-width: 5rem;
+      input{
+        max-width: 4rem;
+      }
+    }
+    .centered,.centered input{
+      text-align: center;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+    
+  }
+  .buttons{
+    position: fixed;
     bottom: 0;
-    border-top-right-radius: 2rem;
-    border-bottom-right-radius: 2rem;
-    z-index: 9;
-    overflow-y: scroll;
-    &::-webkit-scrollbar{
-        width: 1rem;
+    width: 100%;
+    max-width: 57rem;
+    padding: 2rem 0;
+    background-color: #fff;
+    display: flex;
+    margin-top: 3rem;
+    justify-content: space-between;
+    .buttons-right button:first-of-type{
+      margin-right: 1rem;
     }
-    &::-webkit-scrollbar-thumb{
-        background-color: rgba($gray,.5);
-        border-radius: 1rem;
-    }
-    &::-webkit-scrollbar-track-piece{
-        margin: 1rem 0;
-    }
-    &--show{
-        left: 8rem;
-    }
-    &--hide{
-        left: -100vw;    
-    }
-    h4{
-        color: $purple;
-        margin: 2rem 0;
-    }
-    section{
-        margin: 4rem 0;
-    }
-    .input{
-        display: flex;
-        flex-direction: column;
-        margin: 1.5rem 0;
-        label,.label{
-            margin-bottom: 1rem;
-        }
-    }
-    .multiple-inputs{
-        display: flex;
-        .input:not(:first-of-type){
-            margin-left: 1.5rem;
-        }
-    }
-    .date-inputs{
-        display: flex;
-        .input{
-            width: 100%;
-        }
-    }
+  }
+  .button button {
+    margin-top: 2rem;
+    width: 100%;
+  }
 }
