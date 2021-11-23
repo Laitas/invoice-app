@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {ReactComponent as IconArrow} from '../../assets/icon-arrow-down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPaymentTerms } from '../../redux/formSlice'
@@ -16,10 +16,11 @@ const Dropdown = () => {
     const [currentOption,setCurrentOption] = useState('Net 1 Day')
 //   const [update,setUpdate] = useState(false)
     const paymentTerms = useSelector(state => state.form.paymentTerms);
+    const inputRef = useRef(0)
     const dispatch = useDispatch()
     const toggleActive = () => {
         // setUpdate(!update)
-      options.map((option) => {
+      options.forEach((option) => {
         if (paymentTerms === option.id) {
           option.active = true;
         } else {
@@ -33,11 +34,11 @@ const Dropdown = () => {
     },[paymentTerms])
     return (
         <>
-        <div onClick={()=>setDropdown(!dropdown)} className="dropdown--input">
+        <div ref={inputRef} onClick={()=>setDropdown(!dropdown)} className="dropdown--input">
             {currentOption} <IconArrow />
         </div>
         {dropdown && 
-        <div className="dropdown--input-dropdown">
+        <div style={{width : inputRef.current.offsetWidth}} className="dropdown--input-dropdown">
             <ul>
                 {options.map(option => (
                     <li onClick={()=> {dispatch(setPaymentTerms(option.id)); 
