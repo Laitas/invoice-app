@@ -5,6 +5,7 @@ import BackButton from "../../components/BackButton/BackButton";
 import InvoiceHeader from "../../components/InvoiceHeader/InvoiceHeader";
 import InvoiceItems from "../../components/InvoiceItems/InvoiceItems";
 import InvoiceMain from "../../components/InvoiceMain/InvoiceMain";
+import InvoiceNav from "../../components/InvoiceNav/InvoiceNav";
 import './Invoicepage.scss'
 
 const Invoicepage = () => {
@@ -14,11 +15,11 @@ const Invoicepage = () => {
   useEffect(() => {
     const id = params.pathname.slice(10, params.length);
     setInvoice(invoicesSelector.find((invoice) => invoice.id === id));
-    console.log(invoicesSelector.find((invoice) => invoice.id === id));
   }, [params]);
   return (
     <div className="invoice-page">
       <BackButton/>
+      <InvoiceNav invoice={invoice} />
       <div className="invoice-page--invoice">
         <InvoiceHeader invoice={invoice} />
         <InvoiceMain  invoice={invoice}/>
