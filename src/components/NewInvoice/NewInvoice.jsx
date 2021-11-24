@@ -98,7 +98,10 @@ const NewInvoice = () => {
         })
         })
         discard()
-        history.push(`invoices/${form.id}`)
+        // It takes time to update Firebase (I GUESS?????idk)
+        setTimeout(()=>{
+          history.push(`invoices/${form.id}`)
+        },1000)
   }
 
   const discard = () =>{
