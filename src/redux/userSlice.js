@@ -9,7 +9,8 @@ const initialState = {
    key : '',
  },
  invoices : [],
- toggleNewInvoice : false
+ toggleNewInvoice : false,
+ toggleEditInvoice : false,
 }
 
 const userSlice = createSlice({
@@ -22,7 +23,8 @@ const userSlice = createSlice({
     setInvoices: (state, action) => {
       state.invoices = action.payload
     },
-    toggleNew : state => {state.toggleNewInvoice = !state.toggleNewInvoice}
+    toggleNew : state => {state.toggleNewInvoice = !state.toggleNewInvoice},
+    toggleEdit : state => {state.toggleEditInvoice = !state.toggleEditInvoice},
   },
     setKey : (state,action) =>{
       state.user.key = action.payload
@@ -30,6 +32,6 @@ const userSlice = createSlice({
 });
 
 export const {
-    setUser, setInvoices, toggleNew, setKey
+    setUser, setInvoices, toggleNew, setKey, toggleEdit
 } = userSlice.actions
 export default userSlice.reducer

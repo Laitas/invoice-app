@@ -4,6 +4,7 @@ import IconCalendar from '../../assets/icon-calendar.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCreatedAt, setPaymentDue } from '../../redux/formSlice'
 import './CalendarComponent.scss'
+import { useLocation } from 'react-router'
 
 const monthNames = [
   "Jan",
@@ -24,7 +25,9 @@ const CalendarComponent = () => {
     const [date,setCalendarDate] = useState(new Date())
     const [month,setMonth] = useState(0)
     const paymentTerms = useSelector(state => state.form.paymentTerms)
+    const invoicesSelector = useSelector(state => state.user.invoices)
     const dispatch = useDispatch()
+    const location = useLocation()
 
     const addDays = (date, days) => {
       let result = new Date(date);
@@ -44,6 +47,15 @@ const CalendarComponent = () => {
           year : date.getUTCFullYear()
         }))
     },[date])
+    useEffect(()=>{
+      const id = location.pathname.slice(10,location.length)
+      const current = invoicesSelector.find(invoice => invoice.id === id)
+      if(current){
+        setCalendarDate(new Date(current.createdAt))
+      }
+      console.log(date);
+      console.log(current);
+    },[location])
     useEffect(() =>{
       addDays(date,paymentTerms)
       // eslint-disable-next-line react-hooks/exhaustive-deps

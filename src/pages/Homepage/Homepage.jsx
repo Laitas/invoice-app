@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from '../../components/Header/Header'
 import InvoicePreview from '../../components/InvoicePreview/InvoicePreview'
 import { collection,query,where, getDocs } from "firebase/firestore";
@@ -10,6 +10,7 @@ import { ReactComponent as Empty } from '../../assets/illustration-empty.svg'
 import './Homepage.scss'
 import NewInvoice from '../../components/NewInvoice/NewInvoice';
 const Homepage = () => {
+    const [loading,setLoading] = useState(true)
     const uid = useSelector(state => state.user.user.uid)
     const invoices = useSelector(state => state.user.invoices)
   const toggleNewInvoice = useSelector((state) => state.user.toggleNewInvoice);
@@ -23,10 +24,11 @@ const Homepage = () => {
     }
     useEffect(()=>{
         getData()
+        setLoading(false)
     },[uid,toggleNewInvoice])
     return (
         <div>
-            {toggleNewInvoice && <NewInvoice/>}
+            {!loading && <NewInvoice/>}
             <Header/>
             {invoices.length <= 0 ? 
             <div className="empty-list" >

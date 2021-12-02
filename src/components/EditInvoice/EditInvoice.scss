@@ -1,5 +1,5 @@
 @import "../../_variables";
-.new-invoice {
+.edit-invoice {
   position: fixed;
   background-color: #fff;
   padding: 4rem 5rem;
@@ -113,9 +113,7 @@
     display: flex;
     margin-top: 3rem;
     justify-content: space-between;
-    .buttons-right button:first-of-type{
-      margin-right: 1rem;
-    }
+    
   }
   .button button {
     margin-top: 2rem;

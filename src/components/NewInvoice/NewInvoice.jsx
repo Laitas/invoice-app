@@ -126,7 +126,8 @@ const NewInvoice = () => {
   useEffect(() =>{
     setForm(prevState => ({...prevState, paymentDue : `${paymentDueSelector.year}-${paymentDueSelector.month}-${paymentDueSelector.day}`}));
     setForm(prevState => ({...prevState, paymentTerms : paymentTermsSelector}))
-  },[createdAtSelector,paymentTermsSelector])
+    // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
+  },[form.paymentTerms,createdAtSelector,paymentTermsSelector])
   useEffect(() =>{
     setForm(prevState => ({...prevState, createdAt : `${createdAtSelector.year}-${createdAtSelector.month}-${createdAtSelector.day}`}))
   },[createdAtSelector])

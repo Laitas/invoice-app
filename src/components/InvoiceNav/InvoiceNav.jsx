@@ -5,7 +5,8 @@ import { doc, updateDoc, arrayRemove, arrayUnion, query,collection,where,getDocs
 import { db } from "../../firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { setInvoices } from "../../redux/userSlice";
+import { setInvoices, toggleEdit } from "../../redux/userSlice";
+import { setPaymentTerms } from "../../redux/formSlice";
 import "./InvoiceNav.scss";
 
 const InvoiceNav = ({ invoice }) => {
@@ -36,6 +37,10 @@ const InvoiceNav = ({ invoice }) => {
       docSnap.forEach(snap => dispatch(setInvoices(snap.data().invoices)))
       history.go(0)
   };
+  const editFunc = () =>{
+    dispatch(setPaymentTerms(invoice.paymentTerms))
+    dispatch(toggleEdit())
+  }
 
   return (
     <nav className="invoice-nav">
@@ -44,7 +49,7 @@ const InvoiceNav = ({ invoice }) => {
         <Status status={invoice?.status} />
       </div>
       <div className="invoice-nav--buttons">
-        <Button v={2} text="Edit" />
+        <Button v={2} onClick={()=> editFunc()} text="Edit" />
         <Button v={4} onClick={() => deleteDocument()} text="Delete" />
         {invoice.status !== 'paid' &&
         <Button onClick={()=> markAsPaid()} text="Mark as Paid" />

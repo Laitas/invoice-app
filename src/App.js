@@ -7,15 +7,12 @@ import Homepage from './pages/Homepage/Homepage';
 import { auth } from './firebase';
 import Invoicepage from './pages/Invoicepage/Invoicepage';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleNew } from './redux/userSlice';
-import { doc, getDocs, where, collection } from "firebase/firestore";
-import { db } from './firebase';
-import { setKey } from './redux/userSlice';
-
+import { toggleEdit, toggleNew } from './redux/userSlice';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const newInvoiceSelector = useSelector(state => state.user.toggleNewInvoice)
+  const editInvoiceSelector = useSelector(state => state.user.toggleEditInvoice)
   const dispatch = useDispatch()
  
   useEffect(()=>{
@@ -26,6 +23,9 @@ function App() {
   useEffect(()=>{
     if(newInvoiceSelector){
       dispatch(toggleNew())
+    }
+    if(editInvoiceSelector){
+      dispatch(toggleEdit())
     }
   },[])
   return (

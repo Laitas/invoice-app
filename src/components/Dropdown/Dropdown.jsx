@@ -13,16 +13,18 @@ const options = [
 
 const Dropdown = () => {
     const [dropdown,setDropdown] = useState(false)
+    const paymentTerms = useSelector(state => state.form.paymentTerms);
     const [currentOption,setCurrentOption] = useState('Net 1 Day')
 //   const [update,setUpdate] = useState(false)
-    const paymentTerms = useSelector(state => state.form.paymentTerms);
     const inputRef = useRef(0)
     const dispatch = useDispatch()
     const toggleActive = () => {
+        console.log('works');
         // setUpdate(!update)
       options.forEach((option) => {
         if (paymentTerms === option.id) {
           option.active = true;
+          setCurrentOption(option.value)
         } else {
           option.active = false;
         }
@@ -32,6 +34,10 @@ const Dropdown = () => {
         toggleActive()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[paymentTerms])
+    useEffect(()=>{
+        toggleActive()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return (
         <>
         <div ref={inputRef} onClick={()=>setDropdown(!dropdown)} className="dropdown--input">
