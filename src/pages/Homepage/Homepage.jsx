@@ -11,9 +11,11 @@ import './Homepage.scss'
 import NewInvoice from '../../components/NewInvoice/NewInvoice';
 const Homepage = () => {
     const [loading,setLoading] = useState(true)
+    const [filteredInvoices, setFilteredInvoices] = useState([])
     const uid = useSelector(state => state.user.user.uid)
     const invoices = useSelector(state => state.user.invoices)
   const toggleNewInvoice = useSelector((state) => state.user.toggleNewInvoice);
+  const currentFilter = useSelector((state) => state.filter.current);
     const dispatch = useDispatch()
     const getData = async () =>{
         if(uid){
@@ -26,11 +28,19 @@ const Homepage = () => {
         getData()
         setLoading(false)
     },[uid,toggleNewInvoice])
+    useEffect(()=>{
+        if(currentFilter !== 'All'){   
+            setFilteredInvoices(invoices.filter(invoice => invoice.status === currentFilter.toLowerCase()))
+        }else{
+            setFilteredInvoices(invoices)
+        }
+        console.log(filteredInvoices);
+    },[currentFilter])
     return (
         <div>
             {!loading && <NewInvoice/>}
-            <Header/>
-            {invoices.length <= 0 ? 
+            <Header filteredInvoices={filteredInvoices}/>
+            {filteredInvoices.length <= 0 ? 
             <div className="empty-list" >
                 <Empty />
                 <h2>There is nothing here</h2>
@@ -39,7 +49,7 @@ const Homepage = () => {
                     <span>New Invoice</span> button and get started</p>
             </div> 
             :
-            invoices?.map(invoice =>(
+            filteredInvoices?.map(invoice =>(
                 <InvoicePreview key={invoice.id} invoice={invoice} />
                 ))
             }

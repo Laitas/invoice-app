@@ -8,6 +8,7 @@ import { auth } from './firebase';
 import Invoicepage from './pages/Invoicepage/Invoicepage';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleEdit, toggleNew } from './redux/userSlice';
+import { setFilter } from './redux/filterSlice';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -20,7 +21,9 @@ function App() {
       setCurrentUser(user)
     })
   },[currentUser])
+  // Set default states
   useEffect(()=>{
+    dispatch(setFilter('All'))
     if(newInvoiceSelector){
       dispatch(toggleNew())
     }
