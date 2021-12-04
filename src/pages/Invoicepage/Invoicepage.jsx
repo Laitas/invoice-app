@@ -20,10 +20,10 @@ const Invoicepage = () => {
     setLoading(false)
   }, [params]);
   return (
+    <>
+    {!loading &&
     <div className="invoice-page">
-      {!loading &&
       <EditInvoice invoice={invoice}/>
-      }
       <BackButton/>
       <InvoiceNav invoice={invoice} />
       <div className="invoice-page--invoice">
@@ -32,6 +32,8 @@ const Invoicepage = () => {
         <InvoiceItems invoice={invoice} />
       </div>
     </div>
+      }
+    </>
   );
 };
 

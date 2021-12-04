@@ -1,4 +1,5 @@
 import React from 'react'
+import Date from '../Date/Date';
 import './InvoiceMain.scss'
 
 const InvoiceMain = ({invoice}) => {
@@ -8,11 +9,12 @@ const InvoiceMain = ({invoice}) => {
         <div className="dates">
           <div className="invoice-date">
             <span>Invoice Date</span>
-            <span className="bold">{createdAt}</span>
+            {/* <span className="bold">{createdAt}</span> */}
+            <Date className="bold" date={createdAt} />
           </div>
           <div className="payment-due">
             <span>Payment Due</span>
-            <span className="bold">{paymentDue}</span>
+            <Date className="bold" date={paymentDue} />
           </div>
         </div>
         <div className="bill-to">
