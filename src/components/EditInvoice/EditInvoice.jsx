@@ -191,7 +191,7 @@ const EditInvoice = ({ invoice }) => {
           : "edit-invoice edit-invoice--hide"
       }
     >
-      <h2>New Invoice</h2>
+      <h2>Edit #{invoice.id}</h2>
 
       {/* BILL FROM  */}
       <form onSubmit={handleSubmit}>
