@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Status from "../Status/Status";
 import Button from "../Button/Button";
 import { doc, updateDoc, arrayRemove, arrayUnion, query,collection,where,getDocs } from "firebase/firestore";
@@ -8,16 +8,20 @@ import { useHistory } from "react-router";
 import { setInvoices, toggleEdit } from "../../redux/userSlice";
 import { setPaymentTerms } from "../../redux/formSlice";
 import "./InvoiceNav.scss";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 const InvoiceNav = ({ invoice }) => {
+  const [modal,toggleModal] = useState(false)
   const key = useSelector((state) => state.user.user.key);
   const uid = useSelector((state) => state.user.user.uid);
+  const invoices = useSelector((state) => state.user.invoices);
   const history = useHistory();
   const dispatch = useDispatch()
   const deleteDocument = async () => {
     await updateDoc(doc(db, "users", key), {
       invoices: arrayRemove(invoice),
     });
+    dispatch(setInvoices(invoices.filter(current => current.id !== invoice.id)))
     history.push("/");
   };
   const markAsPaid = async () => {
@@ -50,11 +54,12 @@ const InvoiceNav = ({ invoice }) => {
       </div>
       <div className="invoice-nav--buttons">
         <Button v={2} onClick={()=> editFunc()} text="Edit" />
-        <Button v={4} onClick={() => deleteDocument()} text="Delete" />
+        <Button v={4} onClick={() => toggleModal(true)} text="Delete" />
         {invoice.status !== 'paid' &&
         <Button onClick={()=> markAsPaid()} text="Mark as Paid" />
         }
       </div>
+      {modal && <DeleteModal id={invoice.id} deleteDocument={deleteDocument} toggleModal={toggleModal}/>}
     </nav>
   );
 };

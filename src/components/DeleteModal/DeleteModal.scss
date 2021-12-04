@@ -1,0 +1,45 @@
+@import '../../variables';
+.modal-overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.3;
+    z-index: 99;
+}
+.modal-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.modal-itself{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 100;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    
+    h2,p{
+        margin: 1rem 0;
+    }
+    p{
+        color: $input;
+    }
+    .buttons{
+        display: flex;
+        justify-content: flex-end;
+        margin: 1rem 0;
+    }
+    button:first-of-type{
+        margin: 0 1rem;
+    }
+}
