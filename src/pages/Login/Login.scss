@@ -13,9 +13,11 @@
     &--title{
         p{
             margin: 0.5rem 0;
-            span:hover{
+            span{
+                text-decoration: underline;
+                &:hover{
                 cursor: pointer;
-            }
+            }}
         }
     }
     &--form{
@@ -35,4 +37,14 @@
         }
     }
 }
+}
+// DARK THEME
+body.dark-theme{
+    .login-page .login-container{
+        background-color: $invoice-dark-bg;
+        color: #fff;
+        label{
+            color: $gray;
+        }
+    }
 }

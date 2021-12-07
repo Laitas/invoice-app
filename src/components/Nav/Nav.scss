@@ -61,7 +61,9 @@
             justify-content: center;
             padding-bottom: 2rem;
             align-items: center;
-            cursor: pointer;
+            img{
+                cursor: pointer;
+            }
         }
         &-user{
             margin: 2rem;

@@ -3,11 +3,19 @@
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-
+    h1{
+        margin-bottom: 0.5rem;
+    }
     &--buttons{
         display: flex;
         button:first-of-type{
             margin-right: 2rem;
         }
+    }
+}
+// DARK THEME
+body.dark-theme{
+    .header-main{
+        color: #fff;
     }
 }

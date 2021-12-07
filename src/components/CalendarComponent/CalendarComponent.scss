@@ -68,3 +68,30 @@
 .react-calendar__month-view__weekdays__weekday{
     display: none;
 }
+// DARK THEME
+body.dark-theme{
+    .react-calendar{
+        background-color: $invoice-dark-bg;
+        &__tile{
+            color: #fff;
+            &--active{
+                color: $purple;
+            }
+            &:hover{
+                color: $purple;
+            }
+            
+        }
+        &__month-view__days__day--neighboringMonth{
+            color: $input;
+        }
+        &__navigation__label{
+            color: #fff;
+        }
+    }
+    .calendar--input{
+        color: #fff;
+    border: 1px solid #252945;
+
+    }
+}

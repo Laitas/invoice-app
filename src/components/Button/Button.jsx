@@ -3,7 +3,7 @@ import IconPlus from '../../assets/icon-plus.svg'
 import { useDispatch } from 'react-redux'
 import './Button.scss'
 import { toggleNew } from '../../redux/userSlice'
-const Button = ({onClick,v,text,type = 'button',darkMode = false}) => {
+const Button = ({onClick,v,text,type = 'button'}) => {
     const dispatch = useDispatch()
     switch(v){
         case 1:

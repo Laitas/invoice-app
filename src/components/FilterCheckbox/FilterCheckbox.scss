@@ -28,3 +28,15 @@
         }
     }
 }
+// DARK THEME
+body.dark-theme{
+    .checkbox{
+        background-color: $invoice-dark-bg;
+        &.checked{
+            background-color: $purple;
+        }
+    }
+    .checkbox-li{
+        background-color: #252945;
+    }
+}

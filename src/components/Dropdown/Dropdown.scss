@@ -36,3 +36,17 @@
         }
     }
 }
+// DARK THEME
+body.dark-theme{
+    .dropdown--input{
+    border: 1px solid #252945;
+    color: #fff;
+    }
+    .dropdown--input-dropdown li{
+        background-color: $invoice-dark-bg;
+        color: #fff;
+        &:hover{
+            color: $purple;
+        }
+    }
+}

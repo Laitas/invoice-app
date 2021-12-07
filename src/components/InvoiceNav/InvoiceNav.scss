@@ -20,3 +20,12 @@
         }
     }
 }
+// DARK THEME 
+body.dark-theme{
+    .invoice-nav{
+        background-color: $invoice-dark-bg;
+    &--status span{
+        color: $gray;
+    }
+}
+}

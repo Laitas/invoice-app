@@ -48,3 +48,12 @@ input{
 label{
   color:$input;
 }
+// DARK THEME
+body.dark-theme{
+  background-color: $dark-bg;
+  input{
+    background-color: $invoice-dark-bg;
+    border: 1px solid #252945;
+    color: #fff;
+  }
+}

@@ -16,3 +16,12 @@
         font-weight: bold;
     }
 }
+// DARK THEME 
+body.dark-theme{
+    .empty-list{
+        color: #fff;
+        p{
+            color: $gray
+        }
+    }
+}

@@ -176,7 +176,7 @@ const Login = () => {
             <Button type='submit' text={"Log in"} />
             <Button
               onClick={signInWithGoogle}
-              type="google"
+              v="google"
               text={"Log in with Google"}
             />
           </section>

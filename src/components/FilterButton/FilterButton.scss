@@ -1,27 +1,38 @@
-@import '../../variables';
-.filter-btn{
-    position: relative;
-    &--btn{
-        font-family: inherit;
-        background-color: transparent;
-        border: none;
-        font-weight: bold;
-        padding: 1rem 2rem;
-        cursor: pointer;
-        
-        span{
-            margin-left: 1rem;
-        }
-        
+@import "../../variables";
+.filter-btn {
+  position: relative;
+  &--btn {
+    font-family: inherit;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    cursor: pointer;
+
+    span {
+      margin-left: 1rem;
     }
-        &--dropdown{
-            position: absolute;
-            top: 4rem;
-            background-color: #fff;
-            border-radius: 1rem;
-            min-width: 17rem;
-            ul{
-                list-style-type: none;
-            }
-        }
+  }
+  &--dropdown {
+    position: absolute;
+    top: 4rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    min-width: 17rem;
+    overflow: hidden;
+    ul {
+      list-style-type: none;
+    }
+  }
+}
+// DARK THEME
+body.dark-theme {
+  .filter-btn {
+    button {
+      color: #fff;
+    }
+    &--dropdown{
+        background-color: $invoice-dark-bg;
+    }
+  }
 }

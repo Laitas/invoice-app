@@ -10,3 +10,9 @@
         padding: 5rem;
     }
 }
+// DARK THEME
+body.dark-theme{
+    .invoice-page--invoice{
+        background-color: $invoice-dark-bg;
+    }
+}

@@ -8,3 +8,9 @@
     cursor: pointer;
     font-family: inherit;
 }
+// DARK THEME
+body.dark-theme{
+    .back-btn{
+        color: #fff;
+    }
+}

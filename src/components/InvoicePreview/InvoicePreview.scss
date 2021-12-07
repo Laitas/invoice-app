@@ -23,3 +23,12 @@
         justify-self: flex-end;
     }
 }
+// DARK THEME
+body.dark-theme{
+    .invoice-preview{
+        background-color: $invoice-dark-bg;
+        &--date,&--name,&--id,&--amount{
+            color: #fff;
+        }
+    }
+}

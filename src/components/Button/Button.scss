@@ -72,3 +72,22 @@
         }
     }
 }
+// DARK THEME
+body.dark-theme{
+    .btn{
+        // &--type-two{
+        //     background-color: $button-2-dark-background;
+        //     color: $button-2-dark-text;
+        //     &:hover{
+        //         background-color: $button-2-dark-hover;
+        //     }
+        // }
+        &--type-three{
+            background-color: $button-3-dark-background;
+            color: $button-3-dark-text;
+            &:hover{
+                background-color: $button-3-dark-hover;
+            }
+        }
+    }
+}

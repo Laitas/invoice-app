@@ -61,6 +61,10 @@
       opacity: 0;
     }
   }
+  .item-list--heading{
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
   .item-list--items {
     border-collapse: collapse;
     text-align: left;
@@ -72,6 +76,9 @@
     }
     td svg{
       cursor: pointer;
+      path:hover{
+        fill: #EC5757;
+      }
     }
     .big{
       max-width: 22rem;
@@ -113,6 +120,7 @@
     display: flex;
     margin-top: 3rem;
     justify-content: space-between;
+    z-index: 2;
     .buttons-right button:first-of-type{
       margin-right: 1rem;
     }
@@ -121,4 +129,28 @@
     margin-top: 2rem;
     width: 100%;
   }
+}
+// DARK THEME
+body.dark-theme{
+  .new-invoice{
+    background-color: $dark-bg;
+    h2{
+      color: #fff;
+    }
+    label,.label{
+      color: $gray;
+    }
+    .item-list--heading{
+    color: $input;
+    }
+    td{
+      color: $gray;
+    }
+    .buttons{
+      background-color: $dark-bg;
+    }
+    .button button {
+      background: $invoice-dark-bg;
+    }
+  }  
 }

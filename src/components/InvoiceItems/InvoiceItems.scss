@@ -44,3 +44,26 @@
         color: white;
     }
 }
+// DARK THEME 
+body.dark-theme{
+    .invoice-items{
+        background-color: #252945;
+        &--items{
+            li{
+                color: white;
+            }
+            p{
+                color: $gray;
+            }
+            .item-qty li{
+                    color: $gray;
+                }
+            }
+            .item-price li{
+                    color: $gray;
+                }
+            }
+            footer{
+                background-color: black;
+            }
+}

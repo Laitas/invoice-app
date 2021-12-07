@@ -23,3 +23,12 @@ main{
         flex-direction: column;
     }
 }
+// DARK THEME 
+body.dark-theme{
+    main li,main span{
+        color: $gray;
+    }
+    span.bold{
+        color: #fff;
+    }
+}

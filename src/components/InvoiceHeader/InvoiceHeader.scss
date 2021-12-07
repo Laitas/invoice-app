@@ -24,3 +24,9 @@ header{
         }
     }
 }
+// DARK THEME
+body.dark-theme{
+    header span, header p, header h3{
+        color: $gray;
+    }
+}
