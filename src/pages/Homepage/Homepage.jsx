@@ -34,8 +34,7 @@ const Homepage = () => {
         }else{
             setFilteredInvoices(invoices)
         }
-        console.log(filteredInvoices);
-    },[currentFilter])
+    },[currentFilter,invoices])
     return (
         <div>
             {!loading && <NewInvoice/>}
