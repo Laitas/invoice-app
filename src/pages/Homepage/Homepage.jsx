@@ -40,7 +40,7 @@ const Homepage = () => {
         <div>
             {!loading && <NewInvoice/>}
             <Header filteredInvoices={filteredInvoices}/>
-            {filteredInvoices.length <= 0 ? 
+            {filteredInvoices?.length <= 0 ? 
             <div className="empty-list" >
                 <Empty />
                 <h2>There is nothing here</h2>

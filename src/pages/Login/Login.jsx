@@ -54,10 +54,11 @@ const Login = () => {
     addDoc(collection(db, "users"), {
       photoURL: null,
       email: details.email,
-      password: details.password,
       displayName: details.username,
+      invoices : [],
       uid: user.user.uid,
     });
+    handleLogin(e)
     setDetails({
       username: "",
       email: "",
@@ -68,20 +69,53 @@ const Login = () => {
   };
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
-        const { photoURL, email, displayName, uid } = result.user;
-        dispatch(
-          setUser({
+    .then(async (result) => {
+      const { uid } = result.user;
+      const q = query(collection(db, "users"), where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+      // If there's no such user in our db, create file for it
+      if(querySnapshot.empty){
+          const { photoURL, email, displayName, uid } = auth.currentUser
+          addDoc(collection(db, "users"), {
             photoURL: photoURL,
             email: email,
             displayName: displayName,
+            invoices : [],
             uid: uid,
+          });
+          // set user in redux
+          querySnapshot.forEach(doc =>{
+            const { photoURL, email, displayName, uid } = doc.data();
+            dispatch(
+              setUser({
+                photoURL: photoURL,
+                email: email,
+                displayName: displayName,
+                uid: uid,
+                key : doc.id,
+              })
+              );
           })
-        );
+      }else{
+        // if there's already such user in our db, just set up in redux.
+        querySnapshot.forEach(doc =>{
+          const { photoURL, email, displayName, uid } = doc.data();
+          dispatch(
+            setUser({
+              photoURL: photoURL,
+              email: email,
+              displayName: displayName,
+              uid: uid,
+              key : doc.id,
+            })
+            );
+        })
+      }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => {
+        console.error(error);
+      })
+        
   };
   if (signup) {
     return (
@@ -112,7 +146,7 @@ const Login = () => {
               <input required onChange={handleChange} value={details.confirmPassword} type="password" name="confirmPassword" id="confirmPassword" />
             </div>
             <section className="buttons">
-              <Button text={"Sign up"} />
+              <Button type='submit' text={"Sign up"} />
             </section>
           </form>
         </div>
@@ -139,7 +173,7 @@ const Login = () => {
             <input onChange={handleChange} value={details.password} required type="password" name="password" id="password" />
           </div>
           <section className="buttons">
-            <Button text={"Log in"} />
+            <Button type='submit' text={"Log in"} />
             <Button
               onClick={signInWithGoogle}
               type="google"
