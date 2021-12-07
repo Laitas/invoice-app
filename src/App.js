@@ -18,7 +18,11 @@ function App() {
  
   useEffect(()=>{
     auth.onAuthStateChanged(user =>{
-      setCurrentUser(user)
+      if(user){
+        setCurrentUser(user)
+      }else{
+        setCurrentUser(null)
+      }
     })
   },[currentUser])
   // Set default states
