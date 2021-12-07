@@ -223,6 +223,7 @@ const NewInvoice = () => {
       <section className="item-list">
         <span className="item-list--heading">Item List</span>
           <table className="item-list--items">
+            <tbody>
             <tr>
             <th className="label">Item name</th>
             <th className="label">Qty.</th>
@@ -239,6 +240,7 @@ const NewInvoice = () => {
                 <td><IconRemove onClick={() => removeItem(index)}/></td>
               </tr>
             ))}
+            </tbody>
           </table>
         <div className="button">
           <Button

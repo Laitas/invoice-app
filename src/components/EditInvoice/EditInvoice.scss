@@ -72,6 +72,9 @@
     }
     td svg{
       cursor: pointer;
+      path:hover{
+        fill: #EC5757;
+      }
     }
     .big{
       max-width: 22rem;
@@ -119,4 +122,28 @@
     margin-top: 2rem;
     width: 100%;
   }
+}
+// DARK THEME
+body.dark-theme{
+  .edit-invoice{
+    background-color: $dark-bg;
+    h2{
+      color: #fff;
+    }
+    label,.label{
+      color: $gray;
+    }
+    .item-list--heading{
+    color: $input;
+    }
+    td{
+      color: $gray;
+    }
+    .buttons{
+      background-color: $dark-bg;
+    }
+    .button button {
+      background: $invoice-dark-bg;
+    }
+  }  
 }

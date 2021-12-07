@@ -43,3 +43,13 @@
         margin: 0 1rem;
     }
 }
+// DARK THEME
+body.dark-theme{
+    .modal-itself{
+        background-color: $invoice-dark-bg;
+        color: #fff;
+        p{
+            color: $gray;
+        }
+    }
+}

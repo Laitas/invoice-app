@@ -26,7 +26,6 @@ const Nav = () => {
     }
     useEffect(()=>{
         const body = document.body
-        console.log(theme);
         if(theme && body.classList.contains('dark-theme')){
             body.classList.remove('dark-theme')
         }else{

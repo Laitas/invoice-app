@@ -53,8 +53,6 @@ const CalendarComponent = () => {
       if(current){
         setCalendarDate(new Date(current.createdAt))
       }
-      console.log(date);
-      console.log(current);
     },[location])
     useEffect(() =>{
       addDays(date,paymentTerms)

@@ -343,6 +343,7 @@ const EditInvoice = ({ invoice }) => {
         <section className="item-list">
           <span className="item-list--heading">Item List</span>
           <table className="item-list--items">
+            <tbody>
             <tr>
               <th className="label">Item name</th>
               <th className="label">Qty.</th>
@@ -359,7 +360,7 @@ const EditInvoice = ({ invoice }) => {
                     name="name"
                     value={input.name}
                     onChange={(e) => handleItemChange(index, e)}
-                  />
+                    />
                 </td>
                 <td className="small centered">
                   <input
@@ -368,7 +369,7 @@ const EditInvoice = ({ invoice }) => {
                     value={input.quantity}
                     name="quantity"
                     onChange={(e) => handleItemChange(index, e)}
-                  />
+                    />
                 </td>
                 <td className="medium">
                   <input
@@ -377,7 +378,7 @@ const EditInvoice = ({ invoice }) => {
                     value={input.price}
                     name="price"
                     onChange={(e) => handleItemChange(index, e)}
-                  />
+                    />
                 </td>
                 <td>${input.total}</td>
                 <td>
@@ -385,6 +386,7 @@ const EditInvoice = ({ invoice }) => {
                 </td>
               </tr>
             ))}
+            </tbody>
           </table>
           <div className="button">
             <Button

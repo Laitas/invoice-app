@@ -19,7 +19,6 @@ const Dropdown = () => {
     const inputRef = useRef(0)
     const dispatch = useDispatch()
     const toggleActive = () => {
-        console.log('works');
         // setUpdate(!update)
       options.forEach((option) => {
         if (paymentTerms === option.id) {
