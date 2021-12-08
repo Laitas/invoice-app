@@ -6,15 +6,16 @@ import { v4 as uuidv4 } from "uuid";
 import "./NewInvoice.scss";
 import Button from "../Button/Button";
 import {ReactComponent as IconRemove} from '../../assets/icon-delete.svg'
-import { toggleNew } from "../../redux/userSlice";
+import { toggleNew, setInvoices } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { setPaymentTerms } from "../../redux/formSlice";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion,query,collection,getDocs,where } from "firebase/firestore";
 import {db} from '../../firebase'
 import {useHistory} from 'react-router-dom'
 const NewInvoice = () => {
   const toggleNewInvoice = useSelector((state) => state.user.toggleNewInvoice);
   const key = useSelector(state => state.user.user.key)
+  const uid = useSelector(state => state.user.user.uid)
   const createdAtSelector = useSelector(state => state.form.createdAt)
   const paymentTermsSelector = useSelector(state => state.form.paymentTerms)
   const paymentDueSelector = useSelector(state => state.form.paymentDue)
@@ -99,6 +100,9 @@ const NewInvoice = () => {
         })
         discard()
         // It takes time to update Firebase (I GUESS?????idk)
+        const q = query(collection(db, "users"), where("uid", "==", uid));
+        const docSnap = await getDocs(q);
+        docSnap.forEach((snap) => dispatch(setInvoices(snap.data().invoices)));
         setTimeout(()=>{
           history.push(`invoices/${form.id}`)
         },1000)

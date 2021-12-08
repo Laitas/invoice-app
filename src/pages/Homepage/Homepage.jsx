@@ -14,7 +14,6 @@ const Homepage = () => {
     const [filteredInvoices, setFilteredInvoices] = useState([])
     const uid = useSelector(state => state.user.user.uid)
     const invoices = useSelector(state => state.user.invoices)
-  const toggleNewInvoice = useSelector((state) => state.user.toggleNewInvoice);
   const currentFilter = useSelector((state) => state.filter.current);
     const dispatch = useDispatch()
     const getData = async () =>{
@@ -25,9 +24,10 @@ const Homepage = () => {
         }
     }
     useEffect(()=>{
+        setLoading(true)
         getData()
         setLoading(false)
-    },[uid,toggleNewInvoice])
+    },[uid])
     useEffect(()=>{
         if(currentFilter !== 'All'){   
             setFilteredInvoices(invoices.filter(invoice => invoice.status === currentFilter.toLowerCase()))
