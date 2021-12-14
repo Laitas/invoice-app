@@ -20,6 +20,7 @@ import { toggleEdit, setInvoices } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
 import { useHistory } from "react-router-dom";
+import useWindowWidth from "../../hooks/useWindowWidth";
 const EditInvoice = ({ invoice }) => {
   const toggleEditInvoice = useSelector(
     (state) => state.user.toggleEditInvoice
@@ -31,6 +32,7 @@ const EditInvoice = ({ invoice }) => {
   const paymentDueSelector = useSelector((state) => state.form.paymentDue);
   const history = useHistory();
   const dispatch = useDispatch();
+  const [width] = useWindowWidth();
   const [formInputs, setFormInputs] = useState([]);
   const [form, setForm] = useState({
     clientCity: invoice.clientAddress.city,
@@ -158,7 +160,7 @@ const EditInvoice = ({ invoice }) => {
       paymentTerms: paymentTermsSelector,
     }));
     // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
-  }, [form.paymentTerms,createdAtSelector, paymentTermsSelector]);
+  }, [form.paymentTerms, createdAtSelector, paymentTermsSelector]);
   useEffect(() => {
     setForm((prevState) => ({ ...prevState, items: formInputs }));
     const sumOfTotal = formInputs.reduce(
@@ -231,6 +233,23 @@ const EditInvoice = ({ invoice }) => {
                 onChange={handleChange}
               />
             </div>
+            {/* MEDIA QUERY -- DESKTOP */}
+            {width > 595 && (
+              <div className="input">
+                <label htmlFor="senderCountry">Country</label>
+                <input
+                  required
+                  type="text"
+                  name="senderCountry"
+                  id="senderCountry"
+                  value={form.senderCountry}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+          </div>
+          {/* MEDIA QUERY -- MOBILE */}
+          {width <= 595 && (
             <div className="input">
               <label htmlFor="senderCountry">Country</label>
               <input
@@ -242,7 +261,7 @@ const EditInvoice = ({ invoice }) => {
                 onChange={handleChange}
               />
             </div>
-          </div>
+          )}
         </section>
 
         {/* BILL TO  */}
@@ -304,6 +323,23 @@ const EditInvoice = ({ invoice }) => {
                 onChange={handleChange}
               />
             </div>
+            {/* MEDIA QUERY -- DESKTOP */}
+            {width > 595 && (
+              <div className="input">
+                <label htmlFor="clientCountry">Country</label>
+                <input
+                  required
+                  type="text"
+                  name="clientCountry"
+                  id="clientCountry"
+                  value={form.clientCountry}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+          </div>
+          {/* MEDIA QUERY -- MOBILE */}
+          {width <= 595 && (
             <div className="input">
               <label htmlFor="clientCountry">Country</label>
               <input
@@ -315,7 +351,7 @@ const EditInvoice = ({ invoice }) => {
                 onChange={handleChange}
               />
             </div>
-          </div>
+          )}
           <div className="date-inputs">
             <div className="input">
               <span className="label">Invoice Date</span>
@@ -338,56 +374,112 @@ const EditInvoice = ({ invoice }) => {
             />
           </div>
         </section>
-
         {/* ITEM LIST  */}
         <section className="item-list">
           <span className="item-list--heading">Item List</span>
-          <table className="item-list--items">
-            <tbody>
-            <tr>
-              <th className="label">Item name</th>
-              <th className="label">Qty.</th>
-              <th className="label">Price</th>
-              <th className="label">Total</th>
-              <th className="label hidden">Remove</th>
-            </tr>
-            {form.items.map((input, index) => (
-              <tr key={index}>
-                <td className="big">
-                  <input
-                    required
-                    type="text"
-                    name="name"
-                    value={input.name}
-                    onChange={(e) => handleItemChange(index, e)}
-                    />
-                </td>
-                <td className="small centered">
-                  <input
-                    required
-                    type="number"
-                    value={input.quantity}
-                    name="quantity"
-                    onChange={(e) => handleItemChange(index, e)}
-                    />
-                </td>
-                <td className="medium">
-                  <input
-                    required
-                    type="number"
-                    value={input.price}
-                    name="price"
-                    onChange={(e) => handleItemChange(index, e)}
-                    />
-                </td>
-                <td>${input.total}</td>
-                <td>
-                  <IconRemove onClick={() => removeItem(index)} />
-                </td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
+          {/* MEDIA QUERY -- DESKTOP */}
+          {width > 595 ? (
+            <table className="item-list--items">
+              <tbody>
+                <tr>
+                  <th className="label">Item name</th>
+                  <th className="label">Qty.</th>
+                  <th className="label">Price</th>
+                  <th className="label">Total</th>
+                  <th className="label hidden">Remove</th>
+                </tr>
+                {formInputs.map((input, index) => (
+                  <tr key={index}>
+                    <td className="big">
+                      <input
+                        required
+                        type="text"
+                        name="name"
+                        value={input.name}
+                        onChange={(e) => handleItemChange(index, e)}
+                      />
+                    </td>
+                    <td className="small centered">
+                      <input
+                        required
+                        type="number"
+                        value={input.quantity}
+                        name="quantity"
+                        onChange={(e) => handleItemChange(index, e)}
+                      />
+                    </td>
+                    <td className="medium">
+                      <input
+                        required
+                        type="number"
+                        value={input.price}
+                        name="price"
+                        onChange={(e) => handleItemChange(index, e)}
+                      />
+                    </td>
+                    <td>${input.total}</td>
+                    <td>
+                      <IconRemove onClick={() => removeItem(index)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            // MEDIA QUERY -- MOBILE
+            <table className="item-list--items">
+              {formInputs.map((input, index) => (
+                <tbody key={index}>
+                  <tr>
+                    <th className="label">Item name</th>
+                  </tr>
+                  <tr>
+                    <td className="big">
+                      <input
+                        required
+                        type="text"
+                        name="name"
+                        value={input.name}
+                        onChange={(e) => handleItemChange(index, e)}
+                      />
+                    </td>
+                  </tr>
+                  <tbody className="item-list--items--lower-body">
+                    <tr>
+                      <th className="label">Qty.</th>
+                      <th className="label">Price</th>
+                      <th className="label">Total</th>
+                      <th className="label hidden">Remove</th>
+                    </tr>
+                    <tr>
+                      <td className="small">
+                        <input
+                          required
+                          type="number"
+                          value={input.quantity}
+                          name="quantity"
+                          onChange={(e) => handleItemChange(index, e)}
+                        />
+                      </td>
+                      <td className="medium">
+                        <input
+                          required
+                          type="number"
+                          value={input.price}
+                          name="price"
+                          onChange={(e) => handleItemChange(index, e)}
+                        />
+                      </td>
+                      <td>${input.total}</td>
+                      <td>
+                        <IconRemove onClick={() => removeItem(index)} />
+                      </td>
+                    </tr>
+                  </tbody>
+                </tbody>
+              ))}
+            </table>
+          )}
           <div className="button">
             <Button
               onClick={() =>
@@ -401,7 +493,7 @@ const EditInvoice = ({ invoice }) => {
             />
           </div>
         </section>
-        <div className="buttons">
+        <div className="buttons" style={{maxWidth : width - 40}}>
           <Button onClick={() => discard()} v={2} text="Cancel" />
           <Button
             type={"submit"}

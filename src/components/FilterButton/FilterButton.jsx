@@ -3,6 +3,7 @@ import { ReactComponent as ArrowIcon } from "../../assets/icon-arrow-down.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useSelector } from "react-redux";
 import "./FilterButton.scss";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 const options = [
   { id: 1, value: "Draft" },
@@ -11,6 +12,7 @@ const options = [
   { id: 4, value: "All", active: true },
 ];
 const FilterButton = () => {
+  const [width] = useWindowWidth()
   const [dropdown, setDropdown] = useState(false);
   const [update,setUpdate] = useState(false)
   const currentStatus = useSelector((state) => state.filter.current);
@@ -34,7 +36,7 @@ const FilterButton = () => {
         onClick={() => setDropdown(!dropdown)}
         className="filter-btn--btn"
       >
-        Filter by status
+        {width > 426 ? 'Filter by status' : 'Filter'}
         <span>
           <ArrowIcon />
         </span>

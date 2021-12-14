@@ -29,3 +29,28 @@ body.dark-theme{
     }
 }
 }
+// MEDIA QUERY
+@media screen and (max-width: 546px) {
+    .invoice-nav{
+        &--status{
+            width: 100%;
+            justify-content: space-between;
+        }
+        &--buttons{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+            background-color: #fff;
+        }
+    }
+// DARK THEME MEDIA
+body.dark-theme .invoice-nav{
+    &--buttons{
+        background-color: $invoice-dark-bg;
+    }
+}
+}

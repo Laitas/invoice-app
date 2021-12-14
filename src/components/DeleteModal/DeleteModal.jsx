@@ -7,7 +7,7 @@ const DeleteModal = ({id, toggleModal,deleteDocument}) => {
             <div className="modal-overlay"></div>
             <div className="modal-itself">
                 <h2>Confirm Deletion</h2>
-                <p>Are you sure you wnat to delete #{id}? This action cannot be undone.</p>
+                <p>Are you sure you want to delete #{id}? This action cannot be undone.</p>
                 <div className="buttons">
                 <Button v={2} onClick={()=> toggleModal(false)} text="Cancel" />
                 <Button v={4} onClick={deleteDocument} text="Delete" />

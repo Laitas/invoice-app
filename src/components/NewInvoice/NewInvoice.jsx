@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import CalendarComponent from "../CalendarComponent/CalendarComponent";
 import Dropdown from "../Dropdown/Dropdown";
@@ -12,6 +12,7 @@ import { setPaymentTerms } from "../../redux/formSlice";
 import { doc, updateDoc, arrayUnion,query,collection,getDocs,where } from "firebase/firestore";
 import {db} from '../../firebase'
 import {useHistory} from 'react-router-dom'
+import useWindowWidth from "../../hooks/useWindowWidth";
 const NewInvoice = () => {
   const toggleNewInvoice = useSelector((state) => state.user.toggleNewInvoice);
   const key = useSelector(state => state.user.user.key)
@@ -19,11 +20,13 @@ const NewInvoice = () => {
   const createdAtSelector = useSelector(state => state.form.createdAt)
   const paymentTermsSelector = useSelector(state => state.form.paymentTerms)
   const paymentDueSelector = useSelector(state => state.form.paymentDue)
+  const invoiceRef = useRef(0)
   const history = useHistory()
   const dispatch = useDispatch()
   const [formInputs, setFormInputs] = useState([
     { id: uuidv4(), name: "", quantity: 0, price: 0, total: 0 },
   ]);
+  const [width] = useWindowWidth()
 
   const getID = () =>{
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -110,7 +113,7 @@ const NewInvoice = () => {
 
   const discard = () =>{
     setFormInputs([
-      { id: uuidv4(), item: "", qty: 0, price: 0, total: 0 },
+      { id: uuidv4(), name: "", quantity: 0, price: 0, total: 0 },
     ])
     dispatch(setPaymentTerms(1))
     dispatch(toggleNew())
@@ -141,7 +144,7 @@ const NewInvoice = () => {
     setForm(prevState => ({...prevState, total : sumOfTotal.toFixed(2)}))
   },[formInputs])
   return (
-    <div
+    <div ref={invoiceRef}
     className={
       toggleNewInvoice
           ? "new-invoice new-invoice--show"
@@ -167,11 +170,21 @@ const NewInvoice = () => {
             <label htmlFor="senderPostCode">Post Code</label>
             <input required type="text" name="senderPostCode" id="senderPostCode" onChange={handleChange}/>
           </div>
+          {/* MEDIA QUERY -- DESKTOP */}
+        {width > 595 &&
           <div className="input">
             <label htmlFor="senderCountry">Country</label>
             <input required type="text" name="senderCountry" id="senderCountry" onChange={handleChange}/>
           </div>
+        }
         </div>
+        {/* MEDIA QUERY -- MOBILE */}
+        {width <= 595 &&
+        <div className="input">
+        <label htmlFor="senderCountry">Country</label>
+        <input required type="text" name="senderCountry" id="senderCountry" onChange={handleChange}/>
+      </div>
+        }
       </section>
 
       {/* BILL TO  */}
@@ -198,11 +211,21 @@ const NewInvoice = () => {
             <label htmlFor="clientPostCode">Post Code</label>
             <input required type="text" name="clientPostCode" id="clientPostCode" onChange={handleChange}/>
           </div>
+          {/* MEDIA QUERY -- DESKTOP */}
+        {width > 595 &&
           <div className="input">
             <label htmlFor="clientCountry">Country</label>
             <input required type="text" name="clientCountry" id="clientCountry" onChange={handleChange}/>
           </div>
+        }
         </div>
+        {/* MEDIA QUERY -- MOBILE */}
+        {width <= 595 &&
+          <div className="input">
+          <label htmlFor="clientCountry">Country</label>
+          <input required type="text" name="clientCountry" id="clientCountry" onChange={handleChange}/>
+        </div>
+        }
         <div className="date-inputs">
           <div className="input">
             <span className="label">Invoice Date</span>
@@ -226,6 +249,8 @@ const NewInvoice = () => {
       {/* ITEM LIST  */}
       <section className="item-list">
         <span className="item-list--heading">Item List</span>
+        {/* MEDIA QUERY -- DESKTOP */}
+        {width > 595 ?
           <table className="item-list--items">
             <tbody>
             <tr>
@@ -237,15 +262,43 @@ const NewInvoice = () => {
             </tr>
             {formInputs.map((input, index) =>(
               <tr key={index}>
-                <td className="big"><input required type="text" name="name" value={input.name} onChange={e =>handleItemChange(index,e)} /></td>
-                <td className="small centered"><input required type="number" value={input.quantity} name="quantity" onChange={e =>handleItemChange(index,e)} /></td>
-                <td className="medium"><input required type="number" value={input.price} name="price" onChange={e =>handleItemChange(index,e)} /></td>
-                <td>${input.total}</td>
-                <td><IconRemove onClick={() => removeItem(index)}/></td>
+              <td className="big"><input required type="text" name="name" value={input.name} onChange={e =>handleItemChange(index,e)} /></td>
+              <td className="small centered"><input required type="number" value={input.quantity} name="quantity" onChange={e =>handleItemChange(index,e)} /></td>
+              <td className="medium"><input required type="number" value={input.price} name="price" onChange={e =>handleItemChange(index,e)} /></td>
+              <td>${input.total}</td>
+              <td><IconRemove onClick={() => removeItem(index)}/></td>
               </tr>
-            ))}
-            </tbody>
+              ))}
+              </tbody>
           </table>
+        :
+        // MEDIA QUERY -- MOBILE
+        <table className="item-list--items">
+            {formInputs.map((input, index) =>(
+            <tbody key={index}>
+            <tr>
+            <th className="label">Item name</th>
+            </tr>
+            <tr>
+            <td className="big"><input required type="text" name="name" value={input.name} onChange={e =>handleItemChange(index,e)} /></td>
+            </tr>
+              <tbody className="item-list--items--lower-body">
+                <tr>
+            <th className="label">Qty.</th>
+            <th className="label">Price</th>
+            <th className="label">Total</th>
+            <th className="label hidden">Remove</th>
+                </tr>
+                <tr>
+              <td className="small"><input required type="number" value={input.quantity} name="quantity" onChange={e =>handleItemChange(index,e)} /></td>
+              <td className="medium"><input required type="number" value={input.price} name="price" onChange={e =>handleItemChange(index,e)} /></td>
+              <td>${input.total}</td>
+              <td><IconRemove onClick={() => removeItem(index)}/></td>
+              </tr>
+              </tbody>
+              </tbody>
+              ))}
+          </table>}
         <div className="button">
           <Button
             onClick={() =>
@@ -259,7 +312,9 @@ const NewInvoice = () => {
             />
         </div>
             </section>
-        <div className="buttons">
+          {width> 595  ?
+        // <div className="buttons" style={{maxWidth : invoiceRef.current.offsetWidth}}>
+        <div className="buttons" style={{maxWidth : toggleNewInvoice && invoiceRef.current.getBoundingClientRect().width - 70}}>
           <div className="button-left">
             <Button onClick={()=> discard()} v={2} text="Discard" />
           </div>
@@ -268,6 +323,14 @@ const NewInvoice = () => {
             <Button type={'submit'} onClick={checkSubmitButton} onSubmit={e =>handleSubmit(e)} text="Save & Send" />
           </div>
         </div>
+            :
+        // <div className="buttons" style={{maxWidth : toggleNewInvoice && `calc(${invoiceRef.current.getBoundingClientRect().width} - 40px)`}}>
+        <div className="buttons" style={{maxWidth : width - 40 }}>
+                  <Button onClick={()=> discard()} v={2} text="Discard" />
+            <Button type={'submit'} onClick={checkSubmitButton} onSubmit={e =>handleSubmit(e)} v={3} text="Save as Draft" />
+            <Button type={'submit'} onClick={checkSubmitButton} onSubmit={e =>handleSubmit(e)} text="Save & Send" />
+
+        </div>}
             </form>
     </div>
   );

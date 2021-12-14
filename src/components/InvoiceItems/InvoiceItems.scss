@@ -66,4 +66,28 @@ body.dark-theme{
             footer{
                 background-color: black;
             }
+            .item .grayish{
+            color: #888EB0;
+            }
+}
+// MEDIA QUERY 
+@media screen and (max-width: 426px) {
+    .invoice-items--items{
+        padding: 2rem;
+        display: flex;
+        flex-direction: column; 
+        .item{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+        margin: 1rem 0;
+        .items-left p:first-of-type{
+            margin-bottom: 0.5rem;
+        }
+        .grayish{
+            color: #7E88C3;
+        }
+    }
+}
 }

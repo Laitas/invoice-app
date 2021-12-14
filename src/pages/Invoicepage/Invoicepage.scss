@@ -16,3 +16,9 @@ body.dark-theme{
         background-color: $invoice-dark-bg;
     }
 }
+// MEDIA QUERY
+@media screen and (max-width: 426px) {
+        .invoice-page--invoice{
+            padding: 3rem;
+        }
+}

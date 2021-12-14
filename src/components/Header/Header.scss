@@ -19,3 +19,9 @@ body.dark-theme{
         color: #fff;
     }
 }
+// MEDIA QUERY
+@media screen and (max-width: 426px) {
+    .header-main--buttons button:first-of-type{
+        margin-right: 0;
+    }
+}

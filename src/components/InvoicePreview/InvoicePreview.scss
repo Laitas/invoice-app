@@ -2,7 +2,7 @@
 .invoice-preview{
     background-color: #fff;
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr 2fr 2fr 2fr 0.2fr;
     align-items: center;
     gap: 1rem;
     padding: 2rem;
@@ -29,6 +29,28 @@ body.dark-theme{
         background-color: $invoice-dark-bg;
         &--date,&--name,&--id,&--amount{
             color: #fff;
+        }
+    }
+}
+// MEDIA QUERIES
+// MOBILE
+@media screen and(max-width: 426px) {
+    .invoice-preview{
+        display: flex;
+        justify-content: space-between;
+        &--id,&--name{
+            margin-bottom: 2rem;
+        }
+
+        &--name{
+            text-align: end;
+        }
+        &--date{
+            margin-bottom: 1rem;
+        }
+        aside{
+            display: flex;
+            flex-direction: column;
         }
     }
 }

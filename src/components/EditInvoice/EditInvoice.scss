@@ -37,6 +37,7 @@
     display: flex;
     flex-direction: column;
     margin: 1.5rem 0;
+    width: 100%;
     label,
     .label {
       margin-bottom: 1rem;
@@ -44,6 +45,9 @@
   }
   .multiple-inputs {
     display: flex;
+    input{
+      width: 100%;
+    }
     .input:not(:first-of-type) {
       margin-left: 1.5rem;
     }
@@ -53,6 +57,9 @@
     .input {
       width: 100%;
     }
+    .input:not(:first-of-type) {
+      margin-left: 1.5rem;
+    }
   }
   .label {
     font-size: 1.2rem;
@@ -60,6 +67,10 @@
     &.hidden{
       opacity: 0;
     }
+  }
+  .item-list--heading{
+    font-size: 1.8rem;
+    font-weight: bold;
   }
   .item-list--items {
     border-collapse: collapse;
@@ -110,13 +121,15 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    max-width: 57rem;
-    padding: 2rem 0;
+    padding: 2rem 5rem 2rem 0;
     background-color: #fff;
     display: flex;
-    margin-top: 3rem;
+    margin-top: 4rem;
     justify-content: space-between;
-    
+    z-index: 2;
+    .buttons-right button:first-of-type{
+      margin-right: 1rem;
+    }
   }
   .button button {
     margin-top: 2rem;
@@ -146,4 +159,92 @@ body.dark-theme{
       background: $invoice-dark-bg;
     }
   }  
+}
+// MEDIA QUERIES
+// TABLET
+@media screen and (max-width: 768px){
+  .edit-invoice{
+    &--hide {
+      left: -200vw;
+      top: 8rem;
+    }
+    &--show {
+      left: 0;
+      top: 8rem;
+    }
+  }
+}
+@media screen and (max-width: 720px){
+  .edit-invoice{
+    &--show {
+      left: 0;
+      right: 0;
+    }
+  }
+}
+@media screen and (max-width: 595px){
+  .edit-invoice{
+    padding: 4rem 2rem;
+    &--show {
+      left: 0;
+      right: 0;
+    }
+    .item-list--items {
+      td,th{
+        padding: 1rem;
+        &:first-of-type{
+          padding-left: 0;
+        }
+      }
+        min-width: 100%;
+      tbody{
+        min-width: 100%;
+      }
+      &--lower-body{
+        display: block;
+        min-width: 100%;
+        th,td{
+          width: 30%;
+        }
+      }
+    }
+    .big{
+      // max-width: 100vw;
+      // display: inline-block;
+      padding-right: 0;
+      min-width: 100%;
+      input{
+        // max-width: 100rem;
+        min-width: 100%;
+      }
+    }
+    .date-inputs {
+      flex-wrap: wrap;
+      .input:not(:first-of-type) {
+        margin-left: 0;
+      }
+    }
+    .button{
+      margin-bottom: 7rem;
+    }
+    .buttons{
+    justify-content: center;  
+    padding: 2rem 0rem 2rem 0;
+    button{
+      margin: 0 0.5rem;
+    }
+    }
+  }
+}
+@media screen and (max-width : 375px){
+  .edit-invoice{
+    &--hide {
+      left: -200vw;
+      top: 7.2rem;
+    }
+    &--show {
+      left: 0;
+      top: 7.2rem;
+    }
+  }
 }

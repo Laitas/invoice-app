@@ -21,13 +21,14 @@
 }
 .modal-itself{
     display: flex;
+    max-width: 90vw;
     flex-direction: column;
     justify-content: center;
     z-index: 100;
     background-color: #fff;
     padding: 2rem;
     border-radius: 1rem;
-    
+    animation: popIn 0.15s ease-in-out;
     h2,p{
         margin: 1rem 0;
     }
@@ -51,5 +52,15 @@ body.dark-theme{
         p{
             color: $gray;
         }
+    }
+}
+
+// ANIMATION
+@keyframes popIn {
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
     }
 }

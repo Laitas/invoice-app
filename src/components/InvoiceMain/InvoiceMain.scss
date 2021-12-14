@@ -2,6 +2,7 @@
 main{
     margin: 2rem 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     li{
         margin: 0.25rem 0;
@@ -21,6 +22,10 @@ main{
     .dates,.bill-to,.sent-to{
         display: flex;
         flex-direction: column;
+        margin: 1rem 0;
+    }
+    .bill-to,.dates{
+        padding-right: 1rem;
     }
 }
 // DARK THEME 

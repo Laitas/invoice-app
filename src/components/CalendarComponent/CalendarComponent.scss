@@ -95,3 +95,9 @@ body.dark-theme{
 
     }
 }
+// MEDIA QUERY
+@media screen and (max-width: 595px){
+    .calendar--input{
+        min-width: 100%;
+    }
+}
