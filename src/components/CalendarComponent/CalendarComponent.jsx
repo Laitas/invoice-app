@@ -35,7 +35,7 @@ const CalendarComponent = () => {
       dispatch(setPaymentDue({
         day : result.getDate(),
         month : result.getMonth() + 1,
-        year : result.getUTCFullYear()
+        year : result.getFullYear()
       }))
     }
     
@@ -44,7 +44,7 @@ const CalendarComponent = () => {
         dispatch(setCreatedAt({
           day : date.getDate(),
           month : date.getMonth() + 1,
-          year : date.getUTCFullYear()
+          year : date.getFullYear()
         }))
     },[date])
     useEffect(()=>{
