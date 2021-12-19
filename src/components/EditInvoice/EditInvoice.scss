@@ -2,14 +2,22 @@
 .edit-invoice {
   position: fixed;
   background-color: #fff;
-  padding: 4rem 5rem;
+  padding: 4rem 5rem 0rem 5rem;
   top: 0;
   bottom: 0;
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
   z-index: 9;
   overflow-y: scroll;
+  overflow-x: hidden;
   transition: all 0.4s ease;
+  .invalid{
+    border: 1px solid $red-error;
+  }
+  .invalid-message{
+    color: $red-error;
+    padding: 1rem 0;
+  }
   &::-webkit-scrollbar {
     width: 1rem;
   }
@@ -118,10 +126,10 @@
     
   }
   .buttons{
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100%;
-    padding: 2rem 5rem 2rem 0;
+    padding: 2rem 0;
     background-color: #fff;
     display: flex;
     margin-top: 4rem;
@@ -184,7 +192,7 @@ body.dark-theme{
 }
 @media screen and (max-width: 595px){
   .edit-invoice{
-    padding: 4rem 2rem;
+    padding: 4rem 2rem 0rem 2rem;
     &--show {
       left: 0;
       right: 0;

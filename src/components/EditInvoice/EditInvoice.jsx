@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { db } from "../../firebase";
 import { useHistory } from "react-router-dom";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import useFormValidation from "../../hooks/useFormValidation";
 const EditInvoice = ({ invoice }) => {
   const toggleEditInvoice = useSelector(
     (state) => state.user.toggleEditInvoice
@@ -55,12 +56,7 @@ const EditInvoice = ({ invoice }) => {
     total: invoice.total,
   });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     await updateDoc(doc(db, "users", key), {
       invoices: arrayUnion({
         clientAddress: {
@@ -159,8 +155,15 @@ const EditInvoice = ({ invoice }) => {
       ...prevState,
       paymentTerms: paymentTermsSelector,
     }));
+    console.log(form.paymentDue);
     // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
   }, [form.paymentTerms, createdAtSelector, paymentTermsSelector]);
+  useEffect(() => {
+    setForm((prevState) => ({
+      ...prevState,
+      createdAt: `${createdAtSelector.year}-${createdAtSelector.month}-${createdAtSelector.day}`,
+    }));
+  }, [createdAtSelector]);
   useEffect(() => {
     setForm((prevState) => ({ ...prevState, items: formInputs }));
     const sumOfTotal = formInputs.reduce(
@@ -185,6 +188,7 @@ const EditInvoice = ({ invoice }) => {
       ])
     );
   }, []);
+  const { preHandleSubmit, errors, handleChange} = useFormValidation(form,setForm,handleSubmit)
   return (
     <div
       className={
@@ -196,13 +200,13 @@ const EditInvoice = ({ invoice }) => {
       <h2>Edit #{invoice.id}</h2>
 
       {/* BILL FROM  */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={preHandleSubmit}>
         <section className="bill-from">
           <h4>Bill From</h4>
           <div className="input">
             <label htmlFor="senderStreet">Street Address</label>
             <input
-              required
+              className={errors.senderStreet && "invalid"}
               type="text"
               name="senderStreet"
               id="senderStreet"
@@ -214,7 +218,7 @@ const EditInvoice = ({ invoice }) => {
             <div className="input">
               <label htmlFor="senderCity">City</label>
               <input
-                required
+                className={errors.senderCity && "invalid"}
                 type="text"
                 name="senderCity"
                 id="senderCity"
@@ -225,7 +229,7 @@ const EditInvoice = ({ invoice }) => {
             <div className="input">
               <label htmlFor="senderPostCode">Post Code</label>
               <input
-                required
+                className={errors.senderPostCode && "invalid"}
                 type="text"
                 name="senderPostCode"
                 id="senderPostCode"
@@ -238,7 +242,7 @@ const EditInvoice = ({ invoice }) => {
               <div className="input">
                 <label htmlFor="senderCountry">Country</label>
                 <input
-                  required
+                  className={errors.senderCountry && "invalid"}
                   type="text"
                   name="senderCountry"
                   id="senderCountry"
@@ -253,7 +257,7 @@ const EditInvoice = ({ invoice }) => {
             <div className="input">
               <label htmlFor="senderCountry">Country</label>
               <input
-                required
+                className={errors.senderCountry && "invalid"}
                 type="text"
                 name="senderCountry"
                 id="senderCountry"
@@ -270,7 +274,7 @@ const EditInvoice = ({ invoice }) => {
           <div className="input">
             <label htmlFor="clientName">Client's Name</label>
             <input
-              required
+              className={errors.clientName && "invalid"}
               type="text"
               name="clientName"
               id="clientName"
@@ -281,18 +285,21 @@ const EditInvoice = ({ invoice }) => {
           <div className="input">
             <label htmlFor="clientEmail">Client's Email</label>
             <input
-              required
+              className={errors.clientEmail && "invalid"}
               type="email"
               name="clientEmail"
               id="clientEmail"
               value={form.clientEmail}
               onChange={handleChange}
             />
+            <p className="invalid-message">
+            {errors.clientEmail && `${errors.clientEmailMessage}`}
+            </p>
           </div>
           <div className="input">
             <label htmlFor="clientStreet">Street Address</label>
             <input
-              required
+              className={errors.clientStreet && "invalid"}
               type="text"
               name="clientStreet"
               id="clientStreet"
@@ -304,7 +311,7 @@ const EditInvoice = ({ invoice }) => {
             <div className="input">
               <label htmlFor="clientCity">City</label>
               <input
-                required
+                className={errors.clientCity && "invalid"}
                 type="text"
                 name="clientCity"
                 id="clientCity"
@@ -315,7 +322,7 @@ const EditInvoice = ({ invoice }) => {
             <div className="input">
               <label htmlFor="clientPostCode">Post Code</label>
               <input
-                required
+                className={errors.clientPostCode && "invalid"}
                 type="text"
                 name="clientPostCode"
                 id="clientPostCode"
@@ -328,7 +335,7 @@ const EditInvoice = ({ invoice }) => {
               <div className="input">
                 <label htmlFor="clientCountry">Country</label>
                 <input
-                  required
+                  className={errors.clientCountry && "invalid"}
                   type="text"
                   name="clientCountry"
                   id="clientCountry"
@@ -343,7 +350,7 @@ const EditInvoice = ({ invoice }) => {
             <div className="input">
               <label htmlFor="clientCountry">Country</label>
               <input
-                required
+                className={errors.clientCountry && "invalid"}
                 type="text"
                 name="clientCountry"
                 id="clientCountry"
@@ -365,7 +372,7 @@ const EditInvoice = ({ invoice }) => {
           <div className="input">
             <label htmlFor="description">Project Description</label>
             <input
-              required
+              className={errors.description && "invalid"}
               type="text"
               name="description"
               id="description"
@@ -403,6 +410,7 @@ const EditInvoice = ({ invoice }) => {
                       <input
                         required
                         type="number"
+                        placeholder="0"
                         value={input.quantity}
                         name="quantity"
                         onChange={(e) => handleItemChange(index, e)}
@@ -412,6 +420,7 @@ const EditInvoice = ({ invoice }) => {
                       <input
                         required
                         type="number"
+                        placeholder="0.00"
                         value={input.price}
                         name="price"
                         onChange={(e) => handleItemChange(index, e)}
@@ -456,6 +465,7 @@ const EditInvoice = ({ invoice }) => {
                         <input
                           required
                           type="number"
+                          placeholder="0"
                           value={input.quantity}
                           name="quantity"
                           onChange={(e) => handleItemChange(index, e)}
@@ -465,6 +475,7 @@ const EditInvoice = ({ invoice }) => {
                         <input
                           required
                           type="number"
+                          placeholder="0.00"
                           value={input.price}
                           name="price"
                           onChange={(e) => handleItemChange(index, e)}
@@ -485,19 +496,20 @@ const EditInvoice = ({ invoice }) => {
               onClick={() =>
                 setFormInputs((prevState) => [
                   ...prevState,
-                  { id: uuidv4(), name: "", quantity: 0, price: 0, total: 0 },
+                  { id: uuidv4(), name: "", quantity: '', price: '', total: 0.00 },
                 ])
               }
               v={2}
               text="+ Add New Item"
             />
+          {Object.keys(errors).length > 0 && <p className="invalid-message">All fields must be added</p>}
           </div>
         </section>
         <div className="buttons" style={{maxWidth : width - 40}}>
           <Button onClick={() => discard()} v={2} text="Cancel" />
           <Button
             type={"submit"}
-            onClick={handleSubmit}
+            onClick={preHandleSubmit}
             onSubmit={(e) => handleSubmit(e)}
             text="Save Changes"
           />
