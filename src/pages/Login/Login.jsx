@@ -13,6 +13,8 @@ import "./Login.scss";
 
 const Login = () => {
   const [signup, setSignup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [signupErrorMessage, setSignupErrorMessage] = useState('');
   const [details,setDetails] = useState({
       username: '',
       email: '',
@@ -41,7 +43,16 @@ const Login = () => {
             });
       })
       .catch((error) => {
-        console.log(error);
+        switch (error.code){
+          case "auth/user-not-found":
+            setErrorMessage('No such user in our database.')
+            break;
+          case "auth/wrong-password":
+            setErrorMessage('Password is incorrect.')
+            break;
+            default : 
+            setErrorMessage(error.name)
+          }
       });
   };
   const handleChange = (e) =>{
@@ -49,22 +60,41 @@ const Login = () => {
   }
   const handleSignup = (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth,details.email,details.password)
-    .then(user =>{
-    addDoc(collection(db, "users"), {
-      photoURL: null,
-      email: details.email,
-      displayName: details.username,
-      invoices : [],
-      uid: user.user.uid,
-    });
-    handleLogin(e)
-    setDetails({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
+    if(details.password !==  details.confirmPassword){
+      setSignupErrorMessage("Passwords don't match")
+      return
+    }
+      createUserWithEmailAndPassword(auth,details.email,details.password)
+      .then(user =>{
+        addDoc(collection(db, "users"), {
+          photoURL: null,
+          email: details.email,
+          displayName: details.username,
+          invoices : [],
+          uid: user.user.uid,
+        });
+        handleLogin(e)
+        setDetails({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+      })
+    .catch(e =>{
+      switch(e.code){
+        case "auth/invalid-email":
+          setSignupErrorMessage('Invalid email');
+          break;
+        case "auth/weak-password":
+          setSignupErrorMessage('Password should be at least 6 characters');
+          break;
+        case "auth/email-already-in-use":
+          setSignupErrorMessage('Email is already in use');
+          break;
+        default:
+          setSignupErrorMessage(e.code)
+      }
     })
   };
   const signInWithGoogle = () => {
@@ -127,6 +157,7 @@ const Login = () => {
               Already have an account?{" "}
               <span onClick={() => setSignup(false)}>Log in</span>
             </p>
+            {signupErrorMessage && <p className="error">{signupErrorMessage}</p>}
           </h2>
           <form onSubmit={handleSignup} className="login-container--form">
             <div className="login-container--form-input">
@@ -162,6 +193,7 @@ const Login = () => {
             Haven't got an account yet?{" "}
             <span onClick={() => setSignup(true)}>Sign up</span>
           </p>
+          {errorMessage && <p className="error">{errorMessage}</p>}
         </h2>
         <form onSubmit={handleLogin} className="login-container--form">
           <div className="login-container--form-input">
