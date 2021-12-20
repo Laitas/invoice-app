@@ -155,7 +155,6 @@ const EditInvoice = ({ invoice }) => {
       ...prevState,
       paymentTerms: paymentTermsSelector,
     }));
-    console.log(form.paymentDue);
     // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
   }, [form.paymentTerms, createdAtSelector, paymentTermsSelector]);
   useEffect(() => {
