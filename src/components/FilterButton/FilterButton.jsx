@@ -14,12 +14,10 @@ const options = [
 const FilterButton = () => {
   const [width] = useWindowWidth()
   const [dropdown, setDropdown] = useState(false);
-  const [update,setUpdate] = useState(false)
   const currentStatus = useSelector((state) => state.filter.current);
   const dropdownRef = useRef()
   useOutsideClick(dropdownRef, ()=> setDropdown(false))
-  const toggleCheckbox = () => {
-      setUpdate(!update)
+  useEffect(() => {
     options.forEach((option) => {
       if (currentStatus === option.value) {
         option.active = true;
@@ -27,9 +25,6 @@ const FilterButton = () => {
         option.active = false;
       }
     });
-  };
-  useEffect(() => {
-    toggleCheckbox();
   }, [currentStatus]);
   return (
     <div className="filter-btn">

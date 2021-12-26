@@ -34,6 +34,7 @@ function App() {
     if(editInvoiceSelector){
       dispatch(toggleEdit())
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   return (
     <HashRouter>
@@ -55,6 +56,9 @@ function App() {
             }
           />
           <Route exact path='/invoices/:id' component={Invoicepage}/>
+          <Route path="*">
+          <Redirect to="/" />
+        </Route>
         </Switch>
       </div>
     </HashRouter>

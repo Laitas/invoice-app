@@ -48,14 +48,14 @@ const CalendarComponent = () => {
           month : date.getMonth() + 1,
           year : date.getFullYear()
         }))
-    },[date])
+    },[date,dispatch])
     useEffect(()=>{
       const id = location.pathname.slice(10,location.length)
       const current = invoicesSelector.find(invoice => invoice.id === id)
       if(current){
         setCalendarDate(new Date(current.createdAt))
       }
-    },[location])
+    },[location,invoicesSelector])
     useEffect(() =>{
       addDays(date,paymentTerms)
       // eslint-disable-next-line react-hooks/exhaustive-deps

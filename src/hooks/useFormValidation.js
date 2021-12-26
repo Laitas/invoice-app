@@ -81,7 +81,7 @@ const useFormValidation = (values,setValues,handleSubmit) => {
                 setSubmitting(false)
             }
         }
-    },[errors])
+    },[errors,handleSubmit,isSubmitting])
     return {
         preHandleSubmit,
         errors,

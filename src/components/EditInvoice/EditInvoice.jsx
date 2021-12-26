@@ -156,7 +156,7 @@ const EditInvoice = ({ invoice }) => {
       paymentTerms: paymentTermsSelector,
     }));
     // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
-  }, [form.paymentTerms, createdAtSelector, paymentTermsSelector]);
+  }, [form.paymentTerms, createdAtSelector, paymentTermsSelector,paymentDueSelector]);
   useEffect(() => {
     setForm((prevState) => ({
       ...prevState,
@@ -186,6 +186,7 @@ const EditInvoice = ({ invoice }) => {
         },
       ])
     );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { preHandleSubmit, errors, handleChange} = useFormValidation(form,setForm,handleSubmit)
   return (

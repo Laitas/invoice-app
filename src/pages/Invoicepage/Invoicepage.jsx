@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { useLocation, useHistory } from "react-router";
 import BackButton from "../../components/BackButton/BackButton";
 import EditInvoice from "../../components/EditInvoice/EditInvoice";
 import InvoiceHeader from "../../components/InvoiceHeader/InvoiceHeader";
@@ -14,11 +14,15 @@ const Invoicepage = () => {
   const [loading,setLoading] = useState(true);
   const invoicesSelector = useSelector((state) => state.user.invoices);
   const params = useLocation();
+  const history = useHistory()
   useEffect(() => {
     const id = params.pathname.slice(10, params.length);
+    if(!invoicesSelector.find((invoice) => invoice.id === id)){
+      history.push('/')
+    }
     setInvoice(invoicesSelector.find((invoice) => invoice.id === id));
     setLoading(false)
-  }, [params]);
+  }, [params, invoicesSelector,history]);
   return (
     <>
     {!loading &&

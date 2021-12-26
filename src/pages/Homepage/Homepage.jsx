@@ -27,6 +27,7 @@ const Homepage = () => {
         setLoading(true)
         getData()
         setLoading(false)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[uid])
     useEffect(()=>{
         if(currentFilter !== 'All'){   
