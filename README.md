@@ -2,7 +2,7 @@
 
 Challenge by FrontEnd Mentor (https://www.frontendmentor.io/challenges/invoice-app-i7KaLTQjl)
 
-Live page (https://laitas.github.io/invoice-app/)
+Live page (https://invoice-app-drab.vercel.app/#/login)
 
 ## Tools used
 
