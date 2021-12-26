@@ -41,7 +41,10 @@
     &__month-view__days__day--neighboringMonth{
         color: $gray;
     }
-    &__month-view__days{
+    &__month-view__days,
+    &__year-view__months,
+    &__decade-view__years,
+    &__century-view__decades{
         justify-content: center;
         padding: 0.5rem 0;
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "../../assets/logo.svg";
 import IconMoon from "../../assets/icon-moon.svg";
 import IconSun from "../../assets/icon-sun.svg";
@@ -9,12 +9,15 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { setInvoices, setUser } from "../../redux/userSlice";
 import { signOut } from "@firebase/auth";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import "./Nav.scss";
 const Nav = () => {
   const [theme, toggleTheme] = useState(false);
   const [dropdown, toggleDropdown] = useState(false);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const dropdownRef = useRef()
+  useOutsideClick(dropdownRef, () => toggleDropdown(false));
 
   const handleImageUpload = async (e) => {
     if (e.target.files[0]) {
@@ -104,6 +107,7 @@ const Nav = () => {
         </div>
       </nav>
       <div
+      ref={dropdownRef}
         className={`nav--dropdown ${
           dropdown ? "nav--dropdown-active" : "nav--dropdown-hidden"
         }`}

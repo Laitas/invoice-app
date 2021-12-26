@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import {ReactComponent as IconArrow} from '../../assets/icon-arrow-down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { setPaymentTerms } from '../../redux/formSlice'
+import useOutsideClick from '../../hooks/useOutsideClick'
 import './Dropdown.scss'
 
 const options = [
@@ -16,6 +17,8 @@ const Dropdown = () => {
     const paymentTerms = useSelector(state => state.form.paymentTerms);
     const [currentOption,setCurrentOption] = useState('Net 1 Day')
 //   const [update,setUpdate] = useState(false)
+    const dropdownRef = useRef()
+    useOutsideClick(dropdownRef, ()=> setDropdown(false))
     const inputRef = useRef(0)
     const dispatch = useDispatch()
     const toggleActive = () => {
@@ -43,7 +46,7 @@ const Dropdown = () => {
             {currentOption} <IconArrow />
         </div>
         {dropdown && 
-        <div style={{width : inputRef.current.offsetWidth}} className="dropdown--input-dropdown">
+        <div ref={dropdownRef} style={{width : inputRef.current.offsetWidth}} className="dropdown--input-dropdown">
             <ul>
                 {options.map(option => (
                     <li onClick={()=> {dispatch(setPaymentTerms(option.id)); 

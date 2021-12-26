@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ReactComponent as ArrowIcon } from "../../assets/icon-arrow-down.svg";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useSelector } from "react-redux";
 import "./FilterButton.scss";
 import useWindowWidth from "../../hooks/useWindowWidth";
-
+import useOutsideClick from "../../hooks/useOutsideClick";
 const options = [
   { id: 1, value: "Draft" },
   { id: 2, value: "Pending" },
@@ -16,7 +16,8 @@ const FilterButton = () => {
   const [dropdown, setDropdown] = useState(false);
   const [update,setUpdate] = useState(false)
   const currentStatus = useSelector((state) => state.filter.current);
-
+  const dropdownRef = useRef()
+  useOutsideClick(dropdownRef, ()=> setDropdown(false))
   const toggleCheckbox = () => {
       setUpdate(!update)
     options.forEach((option) => {
@@ -42,7 +43,7 @@ const FilterButton = () => {
         </span>
       </button>
       {dropdown && (
-        <div className="filter-btn--dropdown">
+        <div ref={dropdownRef} className="filter-btn--dropdown">
           <ul>
             {options.map((option) => (
               <FilterCheckbox
