@@ -4,6 +4,10 @@ Challenge by FrontEnd Mentor (https://www.frontendmentor.io/challenges/invoice-a
 
 Live page (https://invoice-app-drab.vercel.app/#/login)
 
+If you don't want to create an account yourself, please use this instead:
+id : testuser@test.com
+pw : testuser
+
 ## Tools used
 
 - React
