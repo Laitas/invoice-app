@@ -8,22 +8,19 @@
   &--draft {
     color: #373B53;
     background-color: rgba(#373B53, 0.1);
-    &::marker {
-      color: #373B53;
-    }
   }
   &--paid {
     color: #33d69f;
     background-color: rgba(#33d69f, 0.1);
-    &::marker {
-      color: #33d69f;
-    }
   }
   &--pending {
     color: #FF8F00;
     background-color: rgba(#FF8F00, 0.1);
-    &::marker {
-      color: #FF8F00;
-    }
+  }
+}
+body.dark-theme{
+  .status--draft{
+    background-color: rgba($gray,0.1);
+    color: $gray;
   }
 }

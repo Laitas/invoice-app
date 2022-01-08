@@ -9,6 +9,7 @@ import { setInvoices } from '../../redux/userSlice'
 import { ReactComponent as Empty } from '../../assets/illustration-empty.svg'
 import './Homepage.scss'
 import NewInvoice from '../../components/NewInvoice/NewInvoice';
+import Loader from '../../components/Loader/Loader';
 const Homepage = () => {
     const [loading,setLoading] = useState(true)
     const [filteredInvoices, setFilteredInvoices] = useState([])
@@ -36,6 +37,9 @@ const Homepage = () => {
             setFilteredInvoices(invoices)
         }
     },[currentFilter,invoices])
+    if(loading){
+        return <Loader/>
+    }
     return (
         <div>
             {!loading && <NewInvoice/>}

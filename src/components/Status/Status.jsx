@@ -3,7 +3,7 @@ import './Status.scss'
 
 const Status = ({status}) => {
     return (
-        <li className={`status status--${status}`}>{status}</li>
+        <span className={`status status--${status}`}>&#x25CF; {status}</span>
     )
 }
 
