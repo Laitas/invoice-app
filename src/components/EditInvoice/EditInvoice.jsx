@@ -142,8 +142,14 @@ const EditInvoice = ({ invoice }) => {
   };
   const removeItem = (index) => {
     const values = [...formInputs];
-    values.splice(index, 1);
-    setFormInputs(values);
+    if (values.length <= 1) {
+      setFormInputs([
+        { id: uuidv4(), name: "", quantity: "", price: "", total: 0.0 },
+      ]);
+    } else {
+      values.splice(index, 1);
+      setFormInputs(values);
+    }
   };
 
   useEffect(() => {
@@ -156,7 +162,12 @@ const EditInvoice = ({ invoice }) => {
       paymentTerms: paymentTermsSelector,
     }));
     // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
-  }, [form.paymentTerms, createdAtSelector, paymentTermsSelector,paymentDueSelector]);
+  }, [
+    form.paymentTerms,
+    createdAtSelector,
+    paymentTermsSelector,
+    paymentDueSelector,
+  ]);
   useEffect(() => {
     setForm((prevState) => ({
       ...prevState,
@@ -186,9 +197,15 @@ const EditInvoice = ({ invoice }) => {
         },
       ])
     );
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { preHandleSubmit, errors, handleChange} = useFormValidation(form,setForm,handleSubmit)
+  const { preHandleSubmit, errors, handleChange } = useFormValidation(
+    form,
+    setForm,
+    handleSubmit,
+    formInputs,
+    setFormInputs
+  );
   return (
     <div
       className={
@@ -293,7 +310,7 @@ const EditInvoice = ({ invoice }) => {
               onChange={handleChange}
             />
             <p className="invalid-message">
-            {errors.clientEmail && `${errors.clientEmailMessage}`}
+              {errors.clientEmail && `${errors.clientEmailMessage}`}
             </p>
           </div>
           <div className="input">
@@ -399,7 +416,7 @@ const EditInvoice = ({ invoice }) => {
                   <tr key={index}>
                     <td className="big">
                       <input
-                        required
+                        className={input.errorsName && "invalid"}
                         type="text"
                         name="name"
                         value={input.name}
@@ -408,7 +425,7 @@ const EditInvoice = ({ invoice }) => {
                     </td>
                     <td className="small centered">
                       <input
-                        required
+                        className={input.errorsQuantity && "invalid"}
                         type="number"
                         placeholder="0"
                         value={input.quantity}
@@ -418,7 +435,7 @@ const EditInvoice = ({ invoice }) => {
                     </td>
                     <td className="medium">
                       <input
-                        required
+                        className={input.errorsPrice && "invalid"}
                         type="number"
                         placeholder="0.00"
                         value={input.price}
@@ -445,7 +462,7 @@ const EditInvoice = ({ invoice }) => {
                   <tr>
                     <td className="big">
                       <input
-                        required
+                        className={input.errorsName && "invalid"}
                         type="text"
                         name="name"
                         value={input.name}
@@ -463,7 +480,7 @@ const EditInvoice = ({ invoice }) => {
                     <tr>
                       <td className="small">
                         <input
-                          required
+                          className={input.errorsQuantity && "invalid"}
                           type="number"
                           placeholder="0"
                           value={input.quantity}
@@ -473,7 +490,7 @@ const EditInvoice = ({ invoice }) => {
                       </td>
                       <td className="medium">
                         <input
-                          required
+                          className={input.errorsPrice && "invalid"}
                           type="number"
                           placeholder="0.00"
                           value={input.price}
@@ -496,16 +513,24 @@ const EditInvoice = ({ invoice }) => {
               onClick={() =>
                 setFormInputs((prevState) => [
                   ...prevState,
-                  { id: uuidv4(), name: "", quantity: '', price: '', total: 0.00 },
+                  {
+                    id: uuidv4(),
+                    name: "",
+                    quantity: "",
+                    price: "",
+                    total: 0.0,
+                  },
                 ])
               }
               v={2}
               text="+ Add New Item"
             />
-          {Object.keys(errors).length > 0 && <p className="invalid-message">All fields must be added</p>}
+            {Object.keys(errors).length > 0 && (
+              <p className="invalid-message">All fields must be added</p>
+            )}
           </div>
         </section>
-        <div className="buttons" style={{maxWidth : width - 40}}>
+        <div className="buttons" style={{ maxWidth: width - 40 }}>
           <Button onClick={() => discard()} v={2} text="Cancel" />
           <Button
             type={"submit"}

@@ -1,9 +1,8 @@
 import {useState,useEffect} from 'react'
 
-const useFormValidation = (values,setValues,handleSubmit) => {
+const useFormValidation = (values,setValues,handleSubmit,formInputs,setFormInputs) => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
-    
     const validate = form =>{
         let errors = {}
     const {clientCity,
@@ -57,6 +56,32 @@ const useFormValidation = (values,setValues,handleSubmit) => {
     if(!senderStreet){
         errors.senderStreet = true
     }
+    formInputs.forEach((input,index) =>{
+        const values = [...formInputs]
+        if(!input.name){
+            values[index].errorsName = true
+            setFormInputs(values)
+            errors.formInputs = true
+        }else{
+            delete values[index].errorsName
+        }
+
+        if(!input.price){
+            values[index].errorsPrice = true
+            setFormInputs(values)
+            errors.formInputs = true     
+        }else{
+            delete values[index].errorsPrice
+        }
+
+        if(!input.quantity){
+            values[index].errorsQuantity = true
+            setFormInputs(values)
+            errors.formInputs = true
+        }else{
+            delete values[index].errorsQuantity
+        }
+    })
     return errors
     }
 

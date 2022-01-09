@@ -36,7 +36,7 @@ const NewInvoice = () => {
     { id: uuidv4(), name: "", quantity: "", price: "", total: 0 },
   ]);
   const [width] = useWindowWidth();
-  
+
   const getID = () => {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const nums = "0123456789";
@@ -49,7 +49,7 @@ const NewInvoice = () => {
     }
     return result;
   };
-  
+
   const [form, setForm] = useState({
     clientCity: "",
     clientCountry: "",
@@ -70,7 +70,7 @@ const NewInvoice = () => {
     status: "",
     total: 0,
   });
-  
+
   const checkSubmitButton = (e) => {
     if (e.target.innerText === "Save & Send") {
       setForm((prevState) => ({ ...prevState, status: "pending" }));
@@ -114,7 +114,7 @@ const NewInvoice = () => {
       history.push(`invoices/${form.id}`);
     }, 1000);
   };
-  
+
   const discard = () => {
     setForm({
       clientCity: "",
@@ -147,54 +147,71 @@ const NewInvoice = () => {
     values[index][e.target.name] = e.target.value;
     values[index].total = (
       values[index].price * values[index].quantity
-      ).toFixed(2);
-      setFormInputs(values);
-    };
-    const removeItem = (index) => {
-      const values = [...formInputs];
+    ).toFixed(2);
+    setFormInputs(values);
+  };
+  const removeItem = (index) => {
+    const values = [...formInputs];
+    if (values.length <= 1) {
+      setFormInputs([
+        { id: uuidv4(), name: "", quantity: "", price: "", total: 0.0 },
+      ]);
+    } else {
       values.splice(index, 1);
       setFormInputs(values);
-    };
-    
-    useEffect(() => {
-      setForm((prevState) => ({
-        ...prevState,
-        paymentDue: `${paymentDueSelector.year}-${paymentDueSelector.month}-${paymentDueSelector.day}`,
-      }));
-      setForm((prevState) => ({
-        ...prevState,
-        paymentTerms: paymentTermsSelector,
-      }));
-      // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
-    }, [form.paymentTerms, createdAtSelector, paymentTermsSelector,paymentDueSelector.year,paymentDueSelector.month,paymentDueSelector.day]);
-    useEffect(() => {
-      setForm((prevState) => ({
-        ...prevState,
-        createdAt: `${createdAtSelector.year}-${createdAtSelector.month}-${createdAtSelector.day}`,
-      }));
-    }, [createdAtSelector]);
-    useEffect(() => {
-      setForm((prevState) => ({ ...prevState, items: formInputs }));
-      const sumOfTotal = formInputs.reduce(
-        (sum, curr) => sum + parseFloat(curr.total),
-        0
-        );
-        setForm((prevState) => ({ ...prevState, total: sumOfTotal.toFixed(2) }));
-      }, [formInputs]);
+    }
+  };
 
-      //VALIDATION
-      const { preHandleSubmit,
-        errors,
-        handleChange} = useFormValidation(form,setForm, handleSubmit)
-      return (
-        <div
-        ref={invoiceRef}
-        className={
-          toggleNewInvoice
+  useEffect(() => {
+    setForm((prevState) => ({
+      ...prevState,
+      paymentDue: `${paymentDueSelector.year}-${paymentDueSelector.month}-${paymentDueSelector.day}`,
+    }));
+    setForm((prevState) => ({
+      ...prevState,
+      paymentTerms: paymentTermsSelector,
+    }));
+    // I'm not sure why it's out of sync, I had to include form.paymentTerms as a dependecy
+  }, [
+    form.paymentTerms,
+    createdAtSelector,
+    paymentTermsSelector,
+    paymentDueSelector.year,
+    paymentDueSelector.month,
+    paymentDueSelector.day,
+  ]);
+  useEffect(() => {
+    setForm((prevState) => ({
+      ...prevState,
+      createdAt: `${createdAtSelector.year}-${createdAtSelector.month}-${createdAtSelector.day}`,
+    }));
+  }, [createdAtSelector]);
+  useEffect(() => {
+    setForm((prevState) => ({ ...prevState, items: formInputs }));
+    const sumOfTotal = formInputs.reduce(
+      (sum, curr) => sum + parseFloat(curr.total),
+      0
+    );
+    setForm((prevState) => ({ ...prevState, total: sumOfTotal.toFixed(2) }));
+  }, [formInputs]);
+
+  //VALIDATION
+  const { preHandleSubmit, errors, handleChange } = useFormValidation(
+    form,
+    setForm,
+    handleSubmit,
+    formInputs,
+    setFormInputs
+  );
+  return (
+    <div
+      ref={invoiceRef}
+      className={
+        toggleNewInvoice
           ? "new-invoice new-invoice--show"
           : "new-invoice new-invoice--hide"
-        }
-        >
+      }
+    >
       <h2>New Invoice</h2>
 
       {/* BILL FROM  */}
@@ -209,7 +226,7 @@ const NewInvoice = () => {
               name="senderStreet"
               id="senderStreet"
               onChange={handleChange}
-              />
+            />
           </div>
           <div className="multiple-inputs">
             <div className="input">
@@ -220,7 +237,7 @@ const NewInvoice = () => {
                 name="senderCity"
                 id="senderCity"
                 onChange={handleChange}
-                />
+              />
             </div>
             <div className="input">
               <label htmlFor="senderPostCode">Post Code</label>
@@ -230,19 +247,19 @@ const NewInvoice = () => {
                 name="senderPostCode"
                 id="senderPostCode"
                 onChange={handleChange}
-                />
+              />
             </div>
             {/* MEDIA QUERY -- DESKTOP */}
             {width > 595 && (
               <div className="input">
                 <label htmlFor="senderCountry">Country</label>
                 <input
-                className={errors.senderCountry && "invalid"}
+                  className={errors.senderCountry && "invalid"}
                   type="text"
                   name="senderCountry"
                   id="senderCountry"
                   onChange={handleChange}
-                  />
+                />
               </div>
             )}
           </div>
@@ -267,7 +284,7 @@ const NewInvoice = () => {
           <div className="input">
             <label htmlFor="clientName">Client's Name</label>
             <input
-                className={errors.clientName && "invalid"}
+              className={errors.clientName && "invalid"}
               type="text"
               name="clientName"
               id="clientName"
@@ -284,7 +301,7 @@ const NewInvoice = () => {
               onChange={handleChange}
             />
             <p className="invalid-message">
-            {errors.clientEmail && `${errors.clientEmailMessage}`}
+              {errors.clientEmail && `${errors.clientEmailMessage}`}
             </p>
           </div>
           <div className="input">
@@ -385,7 +402,7 @@ const NewInvoice = () => {
                   <tr key={index}>
                     <td className="big">
                       <input
-                        required
+                        className={input.errorsName && "invalid"}
                         type="text"
                         name="name"
                         value={input.name}
@@ -394,7 +411,7 @@ const NewInvoice = () => {
                     </td>
                     <td className="small centered">
                       <input
-                        required
+                        className={input.errorsQuantity && "invalid"}
                         type="number"
                         placeholder="0"
                         value={input.quantity}
@@ -404,7 +421,7 @@ const NewInvoice = () => {
                     </td>
                     <td className="medium">
                       <input
-                        required
+                        className={input.errorsPrice && "invalid"}
                         type="number"
                         placeholder="0.00"
                         value={input.price}
@@ -431,7 +448,7 @@ const NewInvoice = () => {
                   <tr>
                     <td className="big">
                       <input
-                        required
+                        className={input.errorsName && "invalid"}
                         type="text"
                         name="name"
                         value={input.name}
@@ -449,7 +466,7 @@ const NewInvoice = () => {
                     <tr>
                       <td className="small">
                         <input
-                          required
+                          className={input.errorsQuantity && "invalid"}
                           type="number"
                           placeholder="0"
                           value={input.quantity}
@@ -459,7 +476,7 @@ const NewInvoice = () => {
                       </td>
                       <td className="medium">
                         <input
-                          required
+                          className={input.errorsPrice && "invalid"}
                           type="number"
                           placeholder="0.00"
                           value={input.price}
@@ -495,7 +512,9 @@ const NewInvoice = () => {
               text="+ Add New Item"
             />
           </div>
-          {Object.keys(errors).length > 0 && <p className="invalid-message">All fields must be added</p>}
+          {Object.keys(errors).length > 0 && (
+            <p className="invalid-message">All fields must be added</p>
+          )}
         </section>
         {width > 595 ? (
           <div className="buttons">
